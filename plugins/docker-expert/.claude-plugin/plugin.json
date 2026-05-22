@@ -1,0 +1,22 @@
+{
+  "name": "docker-expert",
+  "version": "1.5.8",
+  "description": "Complete Docker expertise across Windows/Linux/macOS with 2025 AI-powered features. PROACTIVELY activate for: (1) any Docker task (build/run/debug/optimize), (2) Docker AI (Project Gordon), (3) Dockerfile authoring and review, (4) Engine 28 / Desktop 4.47+ features, (5) Compose v2.40+ and Compose Bridge, (6) Enhanced Container Isolation, (7) SBOM and supply-chain hardening, (8) micro-distro images (Wolfi/Chainguard), (9) registry and networking. Provides: 2025 best practices, multi-stage builds, security hardening, debugging.",
+  "keywords": [
+    "docker",
+    "container",
+    "dockerfile",
+    "compose",
+    "engine28",
+    "registry",
+    "network",
+    "containerize",
+    "production",
+    "security",
+    "optimize",
+    "debug",
+    "deploy",
+    "kubernetes"
+  ],
+  "license": "MIT"
+}

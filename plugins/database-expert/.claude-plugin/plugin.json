@@ -1,0 +1,7 @@
+{
+  "name": "database-expert",
+  "version": "1.0.0",
+  "description": "",
+  "license": "MIT",
+  "keywords": ["database", "sql", "postgres", "postgresql", "redshift"]
+}

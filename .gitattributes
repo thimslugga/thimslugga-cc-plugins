@@ -1,0 +1,32 @@
+# Normalize all text files to LF in the repository
+* text=auto eol=lf
+
+# Shell scripts MUST be LF. CRLF breaks the shebang and every command.
+*.sh text eol=lf
+*.bash text eol=lf
+*.py       text eol=lf
+
+# Windows-native scripts, if any are added later, should keep CRLF.
+*.ps1      text eol=crlf
+*.bat      text eol=crlf
+*.cmd      text eol=crlf
+
+# These are consumed by Unix tooling and Claude Code; keep them LF.
+*.txt  text eol=lf
+LICENSE  text eol=lf
+*.example  text eol=lf
+.gitignore text eol=lf
+*.json     text eol=lf
+*.yaml     text eol=lf
+*.yml      text eol=lf
+*.md       text eol=lf
+
+# Binary files: never touch
+*.zip  binary
+*.7z  binary
+*.tgz  binary
+*.tar.gz  binary
+*.png  binary
+*.webp  binary
+*.jpg  binary
+*.jpeg  binary

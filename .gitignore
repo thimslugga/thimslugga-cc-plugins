@@ -1,0 +1,89 @@
+# OS
+._*
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+.kiro/
+#.claude/
+# Claude Code: personal, non-shared settings (Claude Code also auto-ignores this)
+.claude/settings.local.json
+**/settings.local.json
+**/settings.json
+**/worktrees
+.project
+.classpath
+.settings/
+
+# Build artifacts
+dist/
+build/
+*.zip
+*.tar.gz
+*.tgz
+*.tar
+*.gz
+*.7z
+*.skill
+
+# Node
+node_modules/
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+secrets/
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+config.local.*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.cache
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

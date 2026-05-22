@@ -1,0 +1,9 @@
+{
+  "name": "python-development",
+  "description": "Python development with Django, FastAPI, async patterns and uv for package management",
+  "version": "1.0.0",
+  "author": { "name": "thimslugga" },
+  "homepage": "https://github.com/thimslugga/thimslugga-cc-plugins",
+  "license": "MIT",
+  "keywords": ["python", "django", "fastapi", "async", "uv"]
+}
