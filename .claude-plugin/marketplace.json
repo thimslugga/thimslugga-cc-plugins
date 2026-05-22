@@ -1,5 +1,5 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",  
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "thimslugga-cc-plugins",
   "description": "A curated collection of Claude Code plugins for plugin development, context optimization and productivity tools",
   "owner": {
@@ -11,7 +11,7 @@
       "name": "bash-expert",
       "source": "./plugins/bash-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/bash-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/bash-expert",
       "description": "Expert bash/shell scripting across all platforms with Bash 5.3 and 2025 security-first practices. PROACTIVELY activate for: (1) any bash/shell task, (2) Bash 5.3 features (in-shell substitution, BASH_TRAPSIG), (3) security-first patterns (input validation, HISTFILE), (4) ShellCheck v0.11 validation, (5) CI/CD and container-aware scripting, (6) debugging and profiling. Provides: Bash 5.3 reference, ShellCheck rules, Google Shell Style, POSIX.1-2024 compliance, cross-platform patterns, and cloud/CI helpers.",
       "version": "1.0.0",
       "author": {
@@ -23,15 +23,15 @@
         "script",
         "automation",
         "shellcheck",
-        "posix",
+        "posix"
       ]
     },
     {
       "name": "database-expert",
       "source": "./plugins/database-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/database-expert"
-      "description": "",
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/database-expert",
+      "description": "database expert",
       "version": "1.0.0",
       "author": {
         "name": "Adam Kaminski"
@@ -48,8 +48,8 @@
       "name": "developer",
       "source": "./plugins/developer",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/developer"
-      "description": "",
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/developer",
+      "description": "development",
       "version": "1.0.0",
       "author": {
         "name": "Adam Kaminski"
@@ -60,7 +60,7 @@
       "name": "doc-expert",
       "source": "./plugins/doc-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/doc-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/doc-expert",
       "description": "Documentation diagnostic, Markdown style, and ADR expert. Diagnostic-first: refuses to write ADRs for non-decisions and routes the rest to the right home (RFC / Diátaxis / runbook / code comment). Co-drafts ADRs with zero-hallucination discovery, scripted push-back, line-by-line audit of legacy ADRs, and canonical-C4 LikeC4 diagrams. Folder-level audits classify every doc as KEEP / MERGE / REWRITE / DELETE / MOVE / BACKFILL-ADR — the last surfaces past architectural decisions that were never recorded (shipped commits, migrations, retired vendors), retroactively recorded via adr-backfill with a mandatory honesty clause and two-locator evidence. Two-pass Markdown lint over any .md file: canonical syntax (Markdown Guide) plus opinionated style (Google Markdown style guide), per-finding with rule citations.",
       "version": "1.0.0",
       "author": {
@@ -83,14 +83,14 @@
         "agents-md",
         "changelog",
         "postmortem",
-        "readme",
+        "readme"
       ]
     },
     {
       "name": "docker-expert",
       "source": "./plugins/docker-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/docker-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/docker-expert",
       "description": "Complete Docker expertise across Windows/Linux/macOS with 2025 AI-powered features. PROACTIVELY activate for: (1) any Docker task (build/run/debug/optimize), (2) Docker AI (Project Gordon), (3) Dockerfile authoring and review, (4) Engine 28 / Desktop 4.47+ features, (5) Compose v2.40+ and Compose Bridge, (6) Enhanced Container Isolation, (7) SBOM and supply-chain hardening, (8) micro-distro images (Wolfi/Chainguard), (9) registry and networking. Provides: 2025 best practices, multi-stage builds, security hardening, debugging.",
       "version": "1.0.0",
       "author": {
@@ -110,7 +110,7 @@
       "name": "git-expert",
       "source": "./plugins/git-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/git-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/git-expert",
       "description": "Complete Git expertise with 2025 features (Git 2.49+, GitHub CLI 2.x). PROACTIVELY activate for: (1) any Git task, (2) Git 2.49+ features (git-backfill, path-walk, reftables, sparse-checkout, worktrees), (3) signed commits and zero-trust security, (4) Trunk-Based Development, (5) GitHub CLI 2.x and Copilot CLI, (6) GitHub Actions 2025 patterns, (7) monorepo workflows, (8) history rewriting and recovery. Provides: command reference, safety guardrails, reflog recovery.",
       "version": "1.0.0",
       "author": {
@@ -125,14 +125,14 @@
         "worktrees",
         "workflow",
         "rebase",
-        "monorepo"      
+        "monorepo"
       ]
     },
     {
       "name": "plugin-expert",
       "source": "./plugins/plugin-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/plugin-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/plugin-expert",
       "description": "Complete Claude Code plugin development system. PROACTIVELY activate when users want to: (1) Create/build plugins with 2025 features, (2) Add skills/commands/agents/hooks, (3) Validate plugin structure, (4) Publish to marketplace, (5) Get plugin development guidance. Provides: agent-first design patterns, progressive disclosure skills, hook automation, MCP integration, marketplace publishing. Includes plugin-expert agent and validation utilities.",
       "version": "1.0.0",
       "author": {
@@ -161,7 +161,7 @@
       "name": "powershell-expert",
       "source": "./plugins/powershell-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/powershell-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/powershell-expert",
       "description": "Complete PowerShell expertise across Windows/Linux/macOS. PROACTIVELY activate for: (1) any PowerShell task (scripts/modules/cmdlets), (2) CI/CD automation (GitHub Actions, Azure DevOps), (3) cross-platform scripting, (4) module management (PSGallery), (5) Azure/AWS/M365 automation, (6) debugging and optimization, (7) security best practices. Provides: PowerShell 7+ features, Az/Microsoft.Graph/PnP/AWS Tools patterns, PSGallery integration, CI/CD pipeline templates.",
       "version": "1.0.0",
       "author": {
@@ -173,14 +173,14 @@
         "powershell",
         "pwsh",
         "psgallery",
-        "msys2",
+        "msys2"
       ]
     },
     {
       "name": "python-development",
       "source": "./plugins/python-development",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/python-development"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/python-development",
       "description": "Python development with Django, Flask, FastAPI, async patterns and uv for package management",
       "version": "1.0.0",
       "author": {
@@ -202,7 +202,7 @@
       "name": "python-expert",
       "source": "./plugins/python-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/python-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/python-expert",
       "description": "Comprehensive Python 3.13+ expertise covering modern Python, async, types, performance, and cloud deployment. PROACTIVELY activate for: (1) any Python task, (2) 3.13+ features (free-threading, JIT), (3) asyncio and concurrency, (4) type hints with mypy/pyright, (5) package management (uv/pip/poetry), (6) project layout, (7) FastAPI, (8) Pydantic, (9) pytest, (10) Cloudflare Workers/Containers Python, (11) GitHub Actions workflows, (12) profiling, (13) OWASP security, (14) Ruff linting. Provides: production patterns, memory profiling, dataclass vs Pydantic guidance.",
       "version": "1.0.0",
       "author": {
@@ -225,7 +225,7 @@
       "name": "terraform-expert",
       "source": "./plugins/terraform-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/terraform-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/terraform-expert",
       "description": "Complete Terraform expertise for Azure, AWS, and Google Cloud. PROACTIVELY activate for: (1) any Terraform task (init/plan/apply/validate), (2) IaC design, (3) resource import and state management, (4) multi-environment architectures, (5) CI/CD integration, (6) security scanning, (7) version-aware code generation, (8) CLI mastery. Provides: provider knowledge (AzureRM/AWS/GCP), state operations, bulk import (Terraformer/aztfexport), tfsec/Checkov, enterprise patterns, full CLI reference.",
       "version": "1.0.0",
       "author": {
@@ -240,14 +240,14 @@
         "gcp",
         "cloud",
         "devops",
-        "providers",
+        "providers"
       ]
     },
     {
       "name": "windows-path-expert",
       "source": "./plugins/windows-path-expert",
       "category": "development",
-      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/windows-path-expert"
+      "homepage": "https://thimslugga/thimslugga-cc-plugins/tree/main/plugins/windows-path-expert",
       "description": "Windows path resolution and Git Bash compatibility expert for Claude Code. PROACTIVELY activate for: (1) file path errors on Windows (backslash issues), (2) Git Bash MINGW path resolution, (3) Edit/Write tool failures with Windows paths, (4) cross-platform path conversion, (5) Windows file system navigation, (6) path format detection and conversion, (7) Windows-specific file operation troubleshooting. Provides: automatic format detection, backslash conversion, MINGW fixes, real-time validation.",
       "version": "1.0.0",
       "author": {
@@ -259,7 +259,7 @@
         "git-bash",
         "mingw",
         "msys2",
-        "claudecode",
+        "claudecode"
       ]
     }
   ]
