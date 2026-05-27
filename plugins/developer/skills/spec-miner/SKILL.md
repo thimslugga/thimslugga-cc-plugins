@@ -4,7 +4,7 @@ description: "Reverse-engineering specialist that extracts specifications from e
 license: MIT
 allowed-tools: Read, Grep, Glob, Bash
 metadata:
-  version: "1.1.0"
+  version: "1.0.0"
   domain: workflow
   triggers: reverse engineer, legacy code, code analysis, undocumented, understand codebase, existing system
   role: specialist
@@ -33,7 +33,8 @@ You operate with two perspectives: **Arch Hat** for system architecture and data
 
 1. **Scope** - Identify analysis boundaries (full system or specific feature)
 2. **Explore** - Map structure using Glob, Grep, Read tools
-   - _Validation checkpoint:_ Confirm sufficient file coverage before proceeding. If key entry points, configuration files, or core modules remain unread, continue exploration before writing documentation.
+   - *Validation checkpoint:* Confirm sufficient file coverage before proceeding. If key entry points, configuration files, or core modules remain unread, continue exploration before writing
+     documentation.
 3. **Trace** - Follow data flows and request paths
 4. **Document** - Write observed requirements in EARS format
 5. **Flag** - Mark areas needing clarification
@@ -58,12 +59,12 @@ Grep('@app\.route|@router\.|router\.get|router\.post', include='*.py')
 
 EARS (Easy Approach to Requirements Syntax) structures observed behavior as:
 
-| Type | Pattern | Example |
-|------|---------|---------|
-| Ubiquitous | The `<system>` shall `<action>`. | The API shall return JSON responses. |
-| Event-driven | When `<trigger>`, the `<system>` shall `<action>`. | When a request lacks an auth token, the system shall return HTTP 401. |
-| State-driven | While `<state>`, the `<system>` shall `<action>`. | While in maintenance mode, the system shall reject all write operations. |
-| Optional | Where `<feature>` is supported, the `<system>` shall `<action>`. | Where caching is enabled, the system shall store responses for 60 seconds. |
+| Type         | Pattern                                                          | Example                                                                    |
+| ------------ | ---------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Ubiquitous   | The `<system>` shall `<action>`.                                 | The API shall return JSON responses.                                       |
+| Event-driven | When `<trigger>`, the `<system>` shall `<action>`.               | When a request lacks an auth token, the system shall return HTTP 401.      |
+| State-driven | While `<state>`, the `<system>` shall `<action>`.                | While in maintenance mode, the system shall reject all write operations.   |
+| Optional     | Where `<feature>` is supported, the `<system>` shall `<action>`. | Where caching is enabled, the system shall store responses for 60 seconds. |
 
 > See `references/ears-format.md` for the complete EARS reference.
 
@@ -71,12 +72,12 @@ EARS (Easy Approach to Requirements Syntax) structures observed behavior as:
 
 Load detailed guidance based on context:
 
-| Topic | Reference | Load When |
-|-------|-----------|-----------|
-| Analysis Process | `references/analysis-process.md` | Starting exploration, Glob/Grep patterns |
-| EARS Format | `references/ears-format.md` | Writing observed requirements |
-| Specification Template | `references/specification-template.md` | Creating final specification document |
-| Analysis Checklist | `references/analysis-checklist.md` | Ensuring thorough analysis |
+| Topic                  | Reference                              | Load When                                |
+| ---------------------- | -------------------------------------- | ---------------------------------------- |
+| Analysis Process       | `references/analysis-process.md`       | Starting exploration, Glob/Grep patterns |
+| EARS Format            | `references/ears-format.md`            | Writing observed requirements            |
+| Specification Template | `references/specification-template.md` | Creating final specification document    |
+| Analysis Checklist     | `references/analysis-checklist.md`     | Ensuring thorough analysis               |
 
 ## Constraints
 
@@ -108,4 +109,3 @@ Include:
 5. Inferred acceptance criteria
 6. Uncertainties and questions
 7. Recommendations
-

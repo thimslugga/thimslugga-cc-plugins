@@ -4,7 +4,8 @@ Falsificationism and evidence quality assessment for auditing whether claims are
 
 ## Core Principle
 
-Karl Popper's key insight: a claim is only meaningful if you can specify what would disprove it. The Evidence Audit mode extracts claims from proposals, designs falsification criteria, assesses evidence quality, and surfaces competing explanations. The goal is not to disprove — it is to determine whether the evidence actually supports the conclusion.
+Karl Popper's key insight: a claim is only meaningful if you can specify what would disprove it. The Evidence Audit mode extracts claims from proposals, designs falsification criteria, assesses
+evidence quality, and surfaces competing explanations. The goal is not to disprove — it is to determine whether the evidence actually supports the conclusion.
 
 ## Process
 
@@ -20,14 +21,14 @@ Proposals contain claims — often implicit. Extract them before evaluating.
 
 ### Types of Claims
 
-| Type | Example | Hidden In |
-|------|---------|-----------|
-| **Causal** | "X causes Y" | "Our refactor improved performance" |
-| **Predictive** | "X will happen" | "Users will adopt this feature" |
-| **Comparative** | "X is better than Y" | "React is the better choice for us" |
-| **Existential** | "X exists/doesn't exist" | "There's no alternative that meets our needs" |
-| **Universal** | "X is always true" | "Microservices always improve team velocity" |
-| **Quantitative** | "X is N" | "This will save 200 hours per quarter" |
+| Type             | Example                  | Hidden In                                     |
+| ---------------- | ------------------------ | --------------------------------------------- |
+| **Causal**       | "X causes Y"             | "Our refactor improved performance"           |
+| **Predictive**   | "X will happen"          | "Users will adopt this feature"               |
+| **Comparative**  | "X is better than Y"     | "React is the better choice for us"           |
+| **Existential**  | "X exists/doesn't exist" | "There's no alternative that meets our needs" |
+| **Universal**    | "X is always true"       | "Microservices always improve team velocity"  |
+| **Quantitative** | "X is N"                 | "This will save 200 hours per quarter"        |
 
 ### Extraction Method
 
@@ -53,24 +54,24 @@ Claims extracted:
 
 For each claim, design a test that would disprove it.
 
-| Claim | Falsification Criterion | Test |
-|-------|------------------------|------|
-| "Users want feature X" | Fewer than 10% of users engage with X within 30 days | Feature flag, measure adoption |
-| "This will scale to 100K users" | Response time exceeds 500ms at 50K users | Load test at target scale |
-| "Migration will take 3 months" | More than 2 unknown-unknowns discovered in month 1 | Track surprise count during initial phase |
-| "Framework X is faster" | Benchmark shows less than 5% difference | Controlled benchmark on representative workload |
-| "This will reduce costs" | Total cost of ownership exceeds current cost within 12 months | TCO analysis including migration, training, operations |
+| Claim                           | Falsification Criterion                                       | Test                                                   |
+| ------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------ |
+| "Users want feature X"          | Fewer than 10% of users engage with X within 30 days          | Feature flag, measure adoption                         |
+| "This will scale to 100K users" | Response time exceeds 500ms at 50K users                      | Load test at target scale                              |
+| "Migration will take 3 months"  | More than 2 unknown-unknowns discovered in month 1            | Track surprise count during initial phase              |
+| "Framework X is faster"         | Benchmark shows less than 5% difference                       | Controlled benchmark on representative workload        |
+| "This will reduce costs"        | Total cost of ownership exceeds current cost within 12 months | TCO analysis including migration, training, operations |
 
 ### Unfalsifiable Claims (Red Flag)
 
 Some claims cannot be falsified. These are red flags.
 
-| Pattern | Example | Problem |
-|---------|---------|---------|
-| Vague outcome | "This will improve things" | No measurable criterion |
-| Moving goalposts | "It'll work eventually" | No time boundary |
-| Circular reasoning | "This is the best because it's what experts recommend" | Evidence is the claim restated |
-| Unfalsifiable hedge | "This might help in some cases" | True by definition |
+| Pattern             | Example                                                | Problem                        |
+| ------------------- | ------------------------------------------------------ | ------------------------------ |
+| Vague outcome       | "This will improve things"                             | No measurable criterion        |
+| Moving goalposts    | "It'll work eventually"                                | No time boundary               |
+| Circular reasoning  | "This is the best because it's what experts recommend" | Evidence is the claim restated |
+| Unfalsifiable hedge | "This might help in some cases"                        | True by definition             |
 
 When you encounter unfalsifiable claims, ask: "What specific, measurable outcome would tell us this worked or didn't work?"
 
@@ -80,49 +81,49 @@ Not all evidence is equal. Assess each piece of evidence on these dimensions.
 
 ### Evidence Quality Matrix
 
-| Dimension | Strong | Weak |
-|-----------|--------|------|
-| **Sample size** | Large, representative sample | Single case, anecdote |
-| **Recency** | Current data (within 12 months) | Outdated (2+ years) |
-| **Relevance** | Same domain, same scale | Different domain or scale |
-| **Independence** | Multiple independent sources | Single source or vendor-provided |
-| **Methodology** | Controlled, reproducible | Ad hoc, unreproducible |
-| **Specificity** | Precise metrics and conditions | Vague or qualitative |
+| Dimension        | Strong                          | Weak                             |
+| ---------------- | ------------------------------- | -------------------------------- |
+| **Sample size**  | Large, representative sample    | Single case, anecdote            |
+| **Recency**      | Current data (within 12 months) | Outdated (2+ years)              |
+| **Relevance**    | Same domain, same scale         | Different domain or scale        |
+| **Independence** | Multiple independent sources    | Single source or vendor-provided |
+| **Methodology**  | Controlled, reproducible        | Ad hoc, unreproducible           |
+| **Specificity**  | Precise metrics and conditions  | Vague or qualitative             |
 
 ### Evidence Grading Scale
 
-| Grade | Description | Reliability |
-|-------|-------------|------------|
-| **A** | Controlled experiment, large sample, reproducible | High confidence |
-| **B** | Observational data, reasonable sample, consistent with other evidence | Moderate confidence |
-| **C** | Case study, small sample, or single source | Low confidence — needs corroboration |
-| **D** | Anecdote, opinion, or vendor marketing material | Insufficient — do not base decisions on this alone |
-| **F** | No evidence cited | Claim is unsupported |
+| Grade | Description                                                           | Reliability                                        |
+| ----- | --------------------------------------------------------------------- | -------------------------------------------------- |
+| **A** | Controlled experiment, large sample, reproducible                     | High confidence                                    |
+| **B** | Observational data, reasonable sample, consistent with other evidence | Moderate confidence                                |
+| **C** | Case study, small sample, or single source                            | Low confidence — needs corroboration               |
+| **D** | Anecdote, opinion, or vendor marketing material                       | Insufficient — do not base decisions on this alone |
+| **F** | No evidence cited                                                     | Claim is unsupported                               |
 
 ### Common Weak Evidence Patterns
 
-| Pattern | Example | Why It's Weak |
-|---------|---------|---------------|
-| Survivorship bias | "Companies using X are successful" | Ignores companies using X that failed |
-| Cherry-picked metrics | "Response time improved 40%" | Other metrics (error rate, throughput) may have worsened |
-| Vendor benchmarks | "Our tool is 3x faster" | Benchmarks optimized for vendor's strengths |
-| Appeal to authority | "Google does it this way" | Google's constraints are not your constraints |
-| Anchoring | "Industry average is X, we're at Y" | The average may not be the right benchmark |
+| Pattern               | Example                             | Why It's Weak                                            |
+| --------------------- | ----------------------------------- | -------------------------------------------------------- |
+| Survivorship bias     | "Companies using X are successful"  | Ignores companies using X that failed                    |
+| Cherry-picked metrics | "Response time improved 40%"        | Other metrics (error rate, throughput) may have worsened |
+| Vendor benchmarks     | "Our tool is 3x faster"             | Benchmarks optimized for vendor's strengths              |
+| Appeal to authority   | "Google does it this way"           | Google's constraints are not your constraints            |
+| Anchoring             | "Industry average is X, we're at Y" | The average may not be the right benchmark               |
 
 ## Cognitive Bias Awareness
 
 Check for these biases in the reasoning chain.
 
-| Bias | Description | Detection Signal |
-|------|-------------|-----------------|
-| **Confirmation bias** | Seeking evidence that confirms existing belief | Only positive evidence cited; no counter-evidence considered |
-| **Survivorship bias** | Focusing on successes, ignoring failures | "All the successful companies do X" |
-| **Anchoring** | Over-relying on first piece of information | First estimate unchanged despite new data |
-| **Sunk cost fallacy** | Continuing because of past investment | "We've already spent 6 months on this" as justification |
-| **Availability heuristic** | Overweighting recent or vivid examples | Decision based on one memorable incident |
-| **Bandwagon effect** | "Everyone is doing it" | Trend adoption without fitness assessment |
-| **Dunning-Kruger** | Overconfidence in unfamiliar domain | Confident claims about areas outside expertise |
-| **Status quo bias** | Preferring current state despite evidence for change | "It's always been this way" |
+| Bias                       | Description                                          | Detection Signal                                             |
+| -------------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
+| **Confirmation bias**      | Seeking evidence that confirms existing belief       | Only positive evidence cited; no counter-evidence considered |
+| **Survivorship bias**      | Focusing on successes, ignoring failures             | "All the successful companies do X"                          |
+| **Anchoring**              | Over-relying on first piece of information           | First estimate unchanged despite new data                    |
+| **Sunk cost fallacy**      | Continuing because of past investment                | "We've already spent 6 months on this" as justification      |
+| **Availability heuristic** | Overweighting recent or vivid examples               | Decision based on one memorable incident                     |
+| **Bandwagon effect**       | "Everyone is doing it"                               | Trend adoption without fitness assessment                    |
+| **Dunning-Kruger**         | Overconfidence in unfamiliar domain                  | Confident claims about areas outside expertise               |
+| **Status quo bias**        | Preferring current state despite evidence for change | "It's always been this way"                                  |
 
 ## Competing Explanations (Abductive Reasoning)
 

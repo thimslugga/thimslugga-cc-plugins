@@ -7,32 +7,35 @@ description: |
   Ensures correct async patterns without blocking.
 ---
 
+# Python asyncio
+
 ## Quick Reference
 
-| Function | Purpose | Code |
-|----------|---------|------|
-| `asyncio.run()` | Entry point | `asyncio.run(main())` |
-| `asyncio.gather()` | Concurrent tasks | `await asyncio.gather(*tasks)` |
-| `asyncio.create_task()` | Fire-and-await | `task = asyncio.create_task(coro)` |
-| `asyncio.TaskGroup()` | Structured concurrency | `async with asyncio.TaskGroup() as tg:` |
-| `asyncio.Semaphore()` | Rate limiting | `async with semaphore:` |
-| `asyncio.timeout()` | Timeout (3.11+) | `async with asyncio.timeout(5.0):` |
+| Function                | Purpose                | Code                                    |
+| ----------------------- | ---------------------- | --------------------------------------- |
+| `asyncio.run()`         | Entry point            | `asyncio.run(main())`                   |
+| `asyncio.gather()`      | Concurrent tasks       | `await asyncio.gather(*tasks)`          |
+| `asyncio.create_task()` | Fire-and-await         | `task = asyncio.create_task(coro)`      |
+| `asyncio.TaskGroup()`   | Structured concurrency | `async with asyncio.TaskGroup() as tg:` |
+| `asyncio.Semaphore()`   | Rate limiting          | `async with semaphore:`                 |
+| `asyncio.timeout()`     | Timeout (3.11+)        | `async with asyncio.timeout(5.0):`      |
 
-| Pattern | Sequential | Concurrent |
-|---------|------------|------------|
+| Pattern   | Sequential             | Concurrent               |
+| --------- | ---------------------- | ------------------------ |
 | Execution | `await a(); await b()` | `await gather(a(), b())` |
-| Time | Sum of durations | Max of durations |
+| Time      | Sum of durations       | Max of durations         |
 
-| Library | Use Case |
-|---------|----------|
+| Library   | Use Case                   |
+| --------- | -------------------------- |
 | `aiohttp` | HTTP client (most popular) |
-| `httpx` | HTTP (sync + async) |
-| `asyncpg` | PostgreSQL |
-| `uvloop` | 2-4x faster event loop |
+| `httpx`   | HTTP (sync + async)        |
+| `asyncpg` | PostgreSQL                 |
+| `uvloop`  | 2-4x faster event loop     |
 
 ## When to Use This Skill
 
 Use for **async/concurrent programming**:
+
 - Network requests (HTTP, WebSockets)
 - Database queries
 - File I/O operations
@@ -40,13 +43,14 @@ Use for **async/concurrent programming**:
 - FastAPI/Starlette async endpoints
 
 **Related skills:**
+
 - For FastAPI: see `python-fastapi`
 - For type hints: see `python-type-hints`
 - For gotchas: see `python-gotchas`
 
 ---
 
-# Python Asyncio Complete Guide
+## Python Asyncio Complete Guide
 
 ## Overview
 
@@ -55,6 +59,7 @@ Asyncio is Python's built-in framework for writing concurrent code using async/a
 ## When to Use Asyncio
 
 ### Good Use Cases
+
 - Network requests (HTTP clients, WebSockets)
 - Database queries
 - File I/O operations
@@ -63,6 +68,7 @@ Asyncio is Python's built-in framework for writing concurrent code using async/a
 - Multiple concurrent I/O operations
 
 ### When NOT to Use
+
 - CPU-bound tasks (use multiprocessing instead)
 - Simple sequential scripts
 - Legacy codebases without async support
@@ -586,4 +592,5 @@ app = Starlette(routes=[Route("/", homepage)])
 
 For production-ready patterns beyond this guide, see:
 
-- **[Async Patterns Library](references/async-patterns-library.md)** - Token bucket rate limiter, retry with exponential backoff, connection pools, batch processors, event bus, transaction context managers, async cache with TTL, graceful shutdown handlers
+- **[Async Patterns Library](references/async-patterns-library.md)** - Token bucket rate limiter, retry with exponential backoff, connection pools, batch processors, event bus, transaction context
+  managers, async cache with TTL, graceful shutdown handlers

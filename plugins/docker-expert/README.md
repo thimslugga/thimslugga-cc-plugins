@@ -4,7 +4,8 @@ Master Docker across Windows, Linux, and macOS with expert knowledge of best pra
 
 ## Overview
 
-The Docker Expert plugin equips Claude Code with comprehensive Docker expertise, enabling you to build, run, optimize, secure, and debug containers following current industry standards across all platforms.
+The Docker Expert plugin equips Claude Code with comprehensive Docker expertise, enabling you to build, run, optimize, secure, and debug containers following current industry standards across all
+platforms.
 
 ## Features
 
@@ -423,4 +424,5 @@ For issues or questions:
 
 ---
 
-**Master Docker across all platforms with confidence.** This plugin ensures you follow current best practices, maintain security, optimize performance, and handle platform-specific challenges effectively.
+**Master Docker across all platforms with confidence.** This plugin ensures you follow current best practices, maintain security, optimize performance, and handle platform-specific challenges
+effectively.

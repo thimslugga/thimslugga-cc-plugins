@@ -94,7 +94,7 @@ Save specification as: `specs/{project_name}_reverse_spec.md`
 ## Required Sections
 
 | Section                 | Purpose                          |
-|-------------------------|----------------------------------|
+| ----------------------- | -------------------------------- |
 | Overview                | High-level summary               |
 | Architecture            | Tech stack, structure, data flow |
 | Functional Requirements | EARS format observations         |

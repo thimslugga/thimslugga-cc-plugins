@@ -1,0 +1,151 @@
+# EditorConfig - https://editorconfig.org
+# This is a comprehensive configuration covering various programming languages,
+# frameworks, markup formats, and text files.
+
+root = true
+
+# ==============================================================================
+# Global / Default Settings
+# ==============================================================================
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# ==============================================================================
+# Shell & Configuration Scripts
+# ==============================================================================
+[*.{sh,bash,zsh}]
+indent_style = space
+indent_size = 2
+
+[*.bat]
+end_of_line = crlf
+indent_style = space
+indent_size = 4
+
+[Dockerfile*]
+indent_style = space
+indent_size = 4
+
+[Containerfile*]
+indent_style = space
+indent_size = 4
+
+# ==============================================================================
+# Build Systems (Makefiles require tabs)
+# ==============================================================================
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# ==============================================================================
+# Modern Markup & Serialization Formats (JSON, YAML, TOML, XML)
+# ==============================================================================
+[*.{json,jsonc,json5,jsonl,ign}]
+indent_style = space
+indent_size = 2
+
+[*.{yaml,yml,bu,butane}]
+indent_style = space
+indent_size = 2
+
+[*.toml]
+indent_style = space
+indent_size = 4
+
+[*.{xml,xsd,xsl,gpx,plist}]
+indent_style = space
+indent_size = 2
+
+[*.{ini,cfg,conf}]
+indent_style = space
+indent_size = 4
+
+# ==============================================================================
+# Systems & Backend Languages
+# ==============================================================================
+
+# Python (follows PEP 8)
+[*.{py,pyi}]
+indent_style = space
+indent_size = 4
+
+# Ruby
+[*.{rb,gemspec,ru}]
+indent_style = space
+indent_size = 2
+
+# PHP
+[*.php]
+indent_style = space
+indent_size = 4
+
+# Go (uses tabs by standard)
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# Rust
+[*.rs]
+indent_style = space
+indent_size = 4
+
+# C / C++
+[*.{c,h,cpp,hpp,cc,hh}]
+indent_style = space
+indent_size = 4
+
+# C#
+[*.cs]
+indent_style = space
+indent_size = 4
+
+# Java
+[*.java]
+indent_style = space
+indent_size = 4
+
+# Kotlin
+[*.{kt,kts}]
+indent_style = space
+indent_size = 4
+
+# ==============================================================================
+# Web Development (HTML, CSS, Sass, Less, JavaScript, TypeScript, JSON)
+# ==============================================================================
+[*.{js,jsx,mjs,cjs}]
+indent_style = space
+indent_size = 2
+
+[*.{ts,tsx}]
+indent_style = space
+indent_size = 2
+
+[*.{vue,svelte,astro}]
+indent_style = space
+indent_size = 2
+
+[*.svg]
+indent_style = space
+indent_size = 2
+
+[*.{html,htm}]
+indent_style = space
+indent_size = 2
+
+[*.{css,scss,sass,less}]
+indent_style = space
+indent_size = 2
+
+# ==============================================================================
+# Markdown
+# ==============================================================================
+[*.{md,markdown}]
+indent_style = space
+indent_size = 2
+# In Markdown, trailing whitespaces can indicate a line break, so we disable trimming
+trim_trailing_whitespace = false

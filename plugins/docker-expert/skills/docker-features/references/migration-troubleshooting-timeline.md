@@ -7,17 +7,20 @@ Migration paths to Docker Desktop 4.38+, troubleshooting for new 2025 features, 
 ### Updating to Docker Desktop 4.38+
 
 **1. Backup existing configurations:**
+
 ```bash
 # Export current settings
 docker context export desktop-linux > backup.tar
 ```
 
 **2. Update Docker Desktop:**
+
 - Download latest from docker.com
 - Run installer
 - Restart machine if required
 
 **3. Enable new features:**
+
 ```bash
 # Enable AI Assistant (beta)
 docker desktop settings set enableAI=true
@@ -27,6 +30,7 @@ docker desktop settings set enhancedContainerIsolation=true
 ```
 
 **4. Test existing containers:**
+
 ```bash
 # Verify containers work with ECI
 docker compose up -d
@@ -37,6 +41,7 @@ docker compose logs
 ### Updating Compose Files
 
 **Before:**
+
 ```yaml
 version: '3.8'
 
@@ -51,6 +56,7 @@ volumes:
 ```
 
 **After:**
+
 ```yaml
 services:
   app:
@@ -75,6 +81,7 @@ volumes:
 
 **Problem:** AI Assistant not responding
 **Solution:**
+
 ```bash
 # Check Docker Desktop version
 docker version
@@ -87,6 +94,7 @@ docker desktop settings get enableAI
 
 **Problem:** Model Runner slow
 **Solution:**
+
 - Update GPU drivers
 - Increase Docker Desktop memory (Settings > Resources)
 - Close other GPU-intensive applications
@@ -96,6 +104,7 @@ docker desktop settings get enableAI
 
 **Problem:** Container fails with socket permission error
 **Solution:**
+
 ```bash
 # Identify socket dependencies
 docker inspect CONTAINER | grep -i socket
@@ -107,6 +116,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock ...
 
 **Problem:** ECI breaks CI/CD pipeline
 **Solution:**
+
 - Disable ECI temporarily: `docker desktop settings set enhancedContainerIsolation=false`
 - Review which containers need socket access
 - Refactor to eliminate socket dependencies
@@ -116,6 +126,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock ...
 
 **Problem:** "version field is obsolete" warning
 **Solution:**
+
 ```yaml
 # Simply remove the version field
 # OLD:
@@ -128,6 +139,7 @@ services: ...
 
 **Problem:** watch with initial_sync fails
 **Solution:**
+
 ```bash
 # Check file permissions
 ls -la ./src
@@ -142,17 +154,20 @@ docker compose exec app ls -la /app/src
 ## Recommended Feature Adoption Timeline
 
 **Immediate (Production-Ready):**
+
 - Bake for complex builds
 - Compose v2.40 features (remove version field)
 - Moby 25 engine (via regular Docker updates)
 - BuildKit improvements (automatic)
 
 **Testing (Beta but Stable):**
+
 - Docker AI for development workflows
 - Model Runner for local AI testing
 - Multi-node Kubernetes for pre-production
 
 **Evaluation (Security-Critical):**
+
 - Enhanced Container Isolation (test thoroughly)
 - ECI with existing production containers
 - Socket access elimination strategies

@@ -1,46 +1,16 @@
 ---
-name: docker-2025-features
+name: docker-features
 description: |
-  Latest Docker features (2025-2026) including Docker AI, Enhanced Container Isolation, BuildKit improvements, and Moby.
-  PROACTIVELY activate for: (1) Docker AI / Ask Gordon assistant, (2) Enhanced Container Isolation (ECI) for hardened runtime, (3) Moby 25+ engine features, (4) BuildKit advancements (cache mounts, secrets, SBOM, provenance), (5) Docker Compose v2 features (watch mode, profiles, includes), (6) Docker Desktop new settings (Resource Saver, Synchronized File Shares, virtiofs), (7) Docker Build Cloud, (8) Docker Scout for vulnerability scanning, (9) WSL2 backend updates, (10) ContainerD integration.
+  Latest Docker features including Docker AI, Enhanced Container Isolation, BuildKit improvements, and Moby.
+  PROACTIVELY activate for: (1) Docker AI / Ask Gordon assistant, (2) Enhanced Container Isolation (ECI) for hardened runtime, (3) Moby 25+ engine features, (4) BuildKit advancements (cache mounts, secrets, SBOM, provenance), (5) Docker Compose v2 features (watch mode, profiles, includes), (6) Docker Desktop new settings (Resource Saver, Synchronized File Shares, virtiofs), (7) Docker Build Cloud, (8) Docker Scout for vulnerability scanning, (9) Containerd integration.
   Provides: feature reference, version-detection snippets, BuildKit cache/secret recipes, Compose v2 watch examples, and migration notes.
 ---
 
-## 🚨 CRITICAL GUIDELINES
+# Docker Features
 
-### Windows File Path Requirements
+This skill covers the latest Docker features, ensuring you leverage cutting-edge capabilities for security, performance, and developer experience.
 
-## MANDATORY: Always Use Backslashes on Windows for File Paths
-
-When using Edit or Write tools on Windows, you MUST use backslashes (`\`) in file paths, NOT forward slashes (`/`).
-
-**Examples:**
-
-- ❌ WRONG: `D:/repos/project/file.tsx`
-- ✅ CORRECT: `D:\repos\project\file.tsx`
-
-This applies to:
-
-- Edit tool file_path parameter
-- Write tool file_path parameter
-- All file operations on Windows systems
-
-### Documentation Guidelines
-
-**NEVER create new documentation files unless explicitly requested by the user.**
-
-- **Priority**: Update existing README.md files rather than creating new documentation
-- **Repository cleanliness**: Keep repository root clean - only README.md unless user requests otherwise
-- **Style**: Documentation should be concise, direct, and professional - avoid AI-generated tone
-- **User preference**: Only create additional .md files when user specifically asks for documentation
-
----
-
-# Docker 2025 Features
-
-This skill covers the latest Docker features introduced in 2025, ensuring you leverage cutting-edge capabilities for security, performance, and developer experience.
-
-## Docker Engine 28 Features (2025)
+## Docker Engine
 
 ### 1. Image Type Mounts
 
@@ -608,9 +578,11 @@ FROM alpine:3.19@sha256:abc123...
 ## Best Practices for 2025 Features
 
 - **Docker AI** — provide specific context, verify generated configs, combine with traditional security tools; never trust AI blindly for security-critical apps or skip manual review.
-- **Enhanced Container Isolation** — enable for security-sensitive workloads, test compatibility, document socket access, apply least privilege; do not enable without testing or grant socket access casually.
+- **Enhanced Container Isolation** — enable for security-sensitive workloads, test compatibility, document socket access, apply least privilege; do not enable without testing or grant socket access
+  casually.
 - **Modern Compose files** — drop the `version` field, use new features (`type: image` volumes, watch improvements, `--print`, `--quiet`), and test under Compose v2.40+.
 
 ## Migration, Troubleshooting & Adoption Timeline
 
-For migration paths to Docker Desktop 4.38+, troubleshooting of new 2025 features (compose-bridge, hardened-mode quirks, BuildKit history), and the recommended feature-adoption timeline, see `references/migration-troubleshooting-timeline.md`.
+For migration paths to Docker Desktop 4.38+, troubleshooting of new 2025 features (compose-bridge, hardened-mode quirks, BuildKit history), and the recommended feature-adoption timeline, see
+`references/migration-troubleshooting-timeline.md`.

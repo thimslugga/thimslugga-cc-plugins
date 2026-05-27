@@ -4,7 +4,8 @@ Adversarial thinking and red teaming for finding weaknesses before adversaries d
 
 ## Core Principle
 
-Red teaming asks: **"If someone wanted to break, exploit, or game this, how would they do it?"** The Fool adopts the mindset of an adversary — not to cause harm, but to find vulnerabilities before real adversaries do. This applies beyond security: competitors, disgruntled users, perverse incentives, and regulatory challenges are all adversarial forces.
+Red teaming asks: **"If someone wanted to break, exploit, or game this, how would they do it?"** The Fool adopts the mindset of an adversary — not to cause harm, but to find vulnerabilities before
+real adversaries do. This applies beyond security: competitors, disgruntled users, perverse incentives, and regulatory challenges are all adversarial forces.
 
 ## Process
 
@@ -20,48 +21,48 @@ Generic "attackers" produce generic findings. Specific personas produce actionab
 
 ### Persona Template
 
-| Field | Description |
-|-------|-------------|
-| **Role** | Who is this adversary? |
-| **Motivation** | Why would they attack? |
-| **Capability** | What resources and skills do they have? |
-| **Access** | What do they already have access to? |
-| **Constraints** | What limits them? |
+| Field           | Description                             |
+| --------------- | --------------------------------------- |
+| **Role**        | Who is this adversary?                  |
+| **Motivation**  | Why would they attack?                  |
+| **Capability**  | What resources and skills do they have? |
+| **Access**      | What do they already have access to?    |
+| **Constraints** | What limits them?                       |
 
 ### Common Adversary Personas
 
-| Persona | Motivation | Typical Vectors |
-|---------|-----------|----------------|
-| **External Attacker** | Financial gain, data theft | API exploitation, credential stuffing, injection attacks |
-| **Competitor** | Market advantage | Feature copying, talent poaching, FUD campaigns |
-| **Disgruntled Insider** | Revenge, financial gain | Privilege escalation, data exfiltration, sabotage |
-| **Careless User** | None (accidental) | Misconfiguration, weak passwords, sharing credentials |
-| **Regulator** | Compliance enforcement | Audit findings, data handling violations, accessibility gaps |
-| **Opportunistic Gamer** | Personal benefit | Exploiting loopholes in business logic, referral fraud |
-| **Activist** | Ideological goals | Public embarrassment, data leaks, service disruption |
+| Persona                 | Motivation                 | Typical Vectors                                              |
+| ----------------------- | -------------------------- | ------------------------------------------------------------ |
+| **External Attacker**   | Financial gain, data theft | API exploitation, credential stuffing, injection attacks     |
+| **Competitor**          | Market advantage           | Feature copying, talent poaching, FUD campaigns              |
+| **Disgruntled Insider** | Revenge, financial gain    | Privilege escalation, data exfiltration, sabotage            |
+| **Careless User**       | None (accidental)          | Misconfiguration, weak passwords, sharing credentials        |
+| **Regulator**           | Compliance enforcement     | Audit findings, data handling violations, accessibility gaps |
+| **Opportunistic Gamer** | Personal benefit           | Exploiting loopholes in business logic, referral fraud       |
+| **Activist**            | Ideological goals          | Public embarrassment, data leaks, service disruption         |
 
 ### Domain-Specific Personas
 
-| Domain | Key Adversary | Focus |
-|--------|--------------|-------|
-| E-commerce | Fraudster | Payment bypass, coupon abuse, fake returns |
-| SaaS | Free-tier abuser | Rate limit evasion, multi-accounting, resource hoarding |
-| Marketplace | Bad-faith seller | Fake listings, review manipulation, escrow games |
-| API Platform | Scraper | Rate limit bypass, data harvesting, reverse engineering |
-| Social Platform | Troll/bot farm | Spam, manipulation, fake engagement |
+| Domain          | Key Adversary    | Focus                                                   |
+| --------------- | ---------------- | ------------------------------------------------------- |
+| E-commerce      | Fraudster        | Payment bypass, coupon abuse, fake returns              |
+| SaaS            | Free-tier abuser | Rate limit evasion, multi-accounting, resource hoarding |
+| Marketplace     | Bad-faith seller | Fake listings, review manipulation, escrow games        |
+| API Platform    | Scraper          | Rate limit bypass, data harvesting, reverse engineering |
+| Social Platform | Troll/bot farm   | Spam, manipulation, fake engagement                     |
 
 ## Attack Vector Identification
 
 ### By Category
 
-| Category | Vectors | Example |
-|----------|---------|---------|
-| **Technical** | Injection, auth bypass, race conditions, SSRF | SQL injection in search parameter |
-| **Business Logic** | Workflow bypass, state manipulation, price tampering | Applying expired coupon via API replay |
-| **Social** | Phishing, pretexting, authority exploitation | "I'm the CEO, I need access now" |
-| **Operational** | Supply chain, dependency poisoning, insider threat | Compromised npm package in build pipeline |
-| **Information** | Data leakage, metadata exposure, timing attacks | User enumeration via login error messages |
-| **Economic** | Resource exhaustion, denial of wallet, asymmetric cost | Lambda invocation flood causing $50K bill |
+| Category           | Vectors                                                | Example                                   |
+| ------------------ | ------------------------------------------------------ | ----------------------------------------- |
+| **Technical**      | Injection, auth bypass, race conditions, SSRF          | SQL injection in search parameter         |
+| **Business Logic** | Workflow bypass, state manipulation, price tampering   | Applying expired coupon via API replay    |
+| **Social**         | Phishing, pretexting, authority exploitation           | "I'm the CEO, I need access now"          |
+| **Operational**    | Supply chain, dependency poisoning, insider threat     | Compromised npm package in build pipeline |
+| **Information**    | Data leakage, metadata exposure, timing attacks        | User enumeration via login error messages |
+| **Economic**       | Resource exhaustion, denial of wallet, asymmetric cost | Lambda invocation flood causing $50K bill |
 
 ### Attack Tree Construction
 
@@ -87,35 +88,35 @@ Systems create incentives. Sometimes those incentives reward the wrong behavior.
 
 ### Questions to Surface Perverse Incentives
 
-| Question | What It Reveals |
-|----------|----------------|
-| "How will people game this?" | Loopholes in business logic |
-| "What behavior does this reward that we don't want?" | Misaligned incentives |
-| "What's the cheapest way to get the reward without the effort?" | Shortcut exploitation |
-| "If we measure X, what Y gets sacrificed?" | Goodhart's Law in action |
-| "Who benefits from this failing?" | Adversaries with motive |
+| Question                                                        | What It Reveals             |
+| --------------------------------------------------------------- | --------------------------- |
+| "How will people game this?"                                    | Loopholes in business logic |
+| "What behavior does this reward that we don't want?"            | Misaligned incentives       |
+| "What's the cheapest way to get the reward without the effort?" | Shortcut exploitation       |
+| "If we measure X, what Y gets sacrificed?"                      | Goodhart's Law in action    |
+| "Who benefits from this failing?"                               | Adversaries with motive     |
 
 ### Common Perverse Incentive Patterns
 
-| Pattern | Example | Consequence |
-|---------|---------|-------------|
-| Metric gaming | "Lines of code" as productivity metric | Verbose, unmaintainable code |
-| Reward hacking | Referral bonus with no verification | Fake accounts for self-referral |
-| Race to the bottom | "Fastest response time" as SLA | Teams avoid taking complex tickets |
-| Cobra effect | Bounty for reporting bugs | Team introduces bugs to claim bounties |
-| Information asymmetry | Users know more than the system | Adverse selection in marketplace pricing |
+| Pattern               | Example                                | Consequence                              |
+| --------------------- | -------------------------------------- | ---------------------------------------- |
+| Metric gaming         | "Lines of code" as productivity metric | Verbose, unmaintainable code             |
+| Reward hacking        | Referral bonus with no verification    | Fake accounts for self-referral          |
+| Race to the bottom    | "Fastest response time" as SLA         | Teams avoid taking complex tickets       |
+| Cobra effect          | Bounty for reporting bugs              | Team introduces bugs to claim bounties   |
+| Information asymmetry | Users know more than the system        | Adverse selection in marketplace pricing |
 
 ## Competitive Response Analysis
 
 When the "adversary" is a competitor.
 
-| Scenario | Analysis Framework |
-|----------|-------------------|
-| Feature parity | What can they copy? How fast? What's our defensible moat? |
-| Price war | Can they sustain lower prices? What's their cost structure? |
+| Scenario        | Analysis Framework                                                         |
+| --------------- | -------------------------------------------------------------------------- |
+| Feature parity  | What can they copy? How fast? What's our defensible moat?                  |
+| Price war       | Can they sustain lower prices? What's their cost structure?                |
 | Talent poaching | Which roles are critical? How replaceable? What's our retention advantage? |
-| Platform risk | Are we dependent on their platform? What's the switch cost? |
-| FUD campaign | What claims could they make? Which are hardest to refute? |
+| Platform risk   | Are we dependent on their platform? What's the switch cost?                |
+| FUD campaign    | What claims could they make? Which are hardest to refute?                  |
 
 ## Output Template
 

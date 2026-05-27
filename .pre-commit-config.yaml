@@ -1,0 +1,52 @@
+# Pre-commit hooks for rumdl (using prek - https://prek.j178.dev)
+# Install with:
+#   prek install                          # Installs all hook stages
+# Run manually:
+#   prek run --all-files                         # Run commit hooks
+#   prek run --hook-stage pre-push --all-files   # Run push hooks
+
+fail_fast: true
+
+repos:
+  # Secret detection
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.0
+    hooks:
+      - id: gitleaks
+
+  # Shell script linting
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # Conventional Commits validation
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.6.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [] # Optional: add --strict for stricter validation
+
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.7
+    hooks:
+      - id: actionlint
+
+  # YAML linting
+  - repo: https://github.com/owenlamont/ryl-pre-commit
+    rev: v0.4.0
+    hooks:
+      - id: ryl
+
+  # Markdown linting using rumdl
+  - repo: local
+    hooks:
+      - id: rumdl
+        name: rumdl check
+        entry: rumdl
+        language: system
+        files: \.md$
+        exclude: ^(test_tmp|benchmark/test-data|docs/temp|__tests__|CHANGELOG\.md|tests/regressions/idempotency)
+        pass_filenames: true
+        require_serial: true

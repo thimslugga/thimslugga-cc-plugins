@@ -7,37 +7,39 @@ description: |
   Ensures comprehensive test coverage with best practices.
 ---
 
+# Python testing
+
 ## Quick Reference
 
-| pytest Command | Purpose |
-|----------------|---------|
-| `pytest` | Run all tests |
-| `pytest -v` | Verbose output |
+| pytest Command     | Purpose                    |
+| ------------------ | -------------------------- |
+| `pytest`           | Run all tests              |
+| `pytest -v`        | Verbose output             |
 | `pytest -k "name"` | Run tests matching pattern |
-| `pytest -x` | Stop on first failure |
-| `pytest --lf` | Run last failed |
-| `pytest -n auto` | Parallel execution |
+| `pytest -x`        | Stop on first failure      |
+| `pytest --lf`      | Run last failed            |
+| `pytest -n auto`   | Parallel execution         |
 
-| Fixture Scope | Duration |
-|---------------|----------|
-| `function` | Per test (default) |
-| `class` | Per test class |
-| `module` | Per test file |
-| `session` | Entire test run |
+| Fixture Scope | Duration           |
+| ------------- | ------------------ |
+| `function`    | Per test (default) |
+| `class`       | Per test class     |
+| `module`      | Per test file      |
+| `session`     | Entire test run    |
 
-| Mock Pattern | Code |
-|--------------|------|
-| Patch function | `mocker.patch("module.func")` |
-| Return value | `mock.return_value = {...}` |
-| Side effect | `mock.side_effect = [a, b, exc]` |
-| Assert called | `mock.assert_called_once()` |
+| Mock Pattern   | Code                             |
+| -------------- | -------------------------------- |
+| Patch function | `mocker.patch("module.func")`    |
+| Return value   | `mock.return_value = {...}`      |
+| Side effect    | `mock.side_effect = [a, b, exc]` |
+| Assert called  | `mock.assert_called_once()`      |
 
-| Marker | Use Case |
-|--------|----------|
-| `@pytest.mark.asyncio` | Async tests |
-| `@pytest.mark.parametrize` | Multiple inputs |
-| `@pytest.mark.skip` | Skip test |
-| `@pytest.mark.xfail` | Expected failure |
+| Marker                     | Use Case         |
+| -------------------------- | ---------------- |
+| `@pytest.mark.asyncio`     | Async tests      |
+| `@pytest.mark.parametrize` | Multiple inputs  |
+| `@pytest.mark.skip`        | Skip test        |
+| `@pytest.mark.xfail`       | Expected failure |
 
 ## When to Use This Skill
 
@@ -57,7 +59,7 @@ Use for **testing Python code**:
 
 ---
 
-# Python Testing Best Practices (2025)
+## Python Testing Best Practices (2025)
 
 ## Overview
 
@@ -72,7 +74,7 @@ Modern Python testing centers around pytest as the de facto standard, with addit
 uv add --dev pytest pytest-cov pytest-asyncio pytest-xdist
 
 # With pip
-pip install pytest pytest-cov pytest-asyncio pytest-xdist
+python3 -m pip install pytest pytest-cov pytest-asyncio pytest-xdist
 ```
 
 ### Basic Test Structure
@@ -642,4 +644,5 @@ def test_user_can_post_bad():
 
 For production-ready fixture patterns beyond this guide, see:
 
-- **[Pytest Fixtures Cookbook](references/pytest-fixtures-cookbook.md)** - SQLAlchemy async sessions, PostgreSQL with Docker, user factories, generic model factories, authentication fixtures, external API mocks, time freezing, environment fixtures, file fixtures, parametrized fixtures, cleanup patterns, Redis fixtures
+- **[Pytest Fixtures Cookbook](references/pytest-fixtures-cookbook.md)** - SQLAlchemy async sessions, PostgreSQL with Docker, user factories, generic model factories, authentication fixtures, external
+  API mocks, time freezing, environment fixtures, file fixtures, parametrized fixtures, cleanup patterns, Redis fixtures

@@ -13,6 +13,7 @@ Initialize a modern Python project with best practices configuration.
 Creates a production-ready Python project structure with:
 
 1. **Project Structure** (src layout)
+
    ```text
    project/
    ├── src/
@@ -73,7 +74,7 @@ build-backend = "hatchling.build"
 
 [tool.ruff]
 target-version = "py311"
-line-length = 88
+line-length = 100
 src = ["src", "tests"]
 
 [tool.ruff.lint]

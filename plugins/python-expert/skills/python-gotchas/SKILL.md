@@ -7,34 +7,40 @@ description: |
   Ensures bug-free Python code.
 ---
 
+# Python Gotchas
+
 ## Quick Reference
 
-| Gotcha | Problem | Fix |
-|--------|---------|-----|
-| Mutable default | `def f(x=[])` | Use `None`, create in function |
-| Iterate + mutate | Skips items | Iterate over copy `items[:]` |
-| `is` vs `==` | Identity vs value | Use `is` only for `None` |
-| Late binding | `lambda: i` captures var | `lambda i=i: i` |
-| Float precision | `0.1 + 0.2 != 0.3` | `math.isclose()` |
-| Dict mutation | RuntimeError | `list(d.keys())` |
-| Class attribute | Shared mutable | Init in `__init__` |
+| Gotcha                   | Problem                      | Solution                                  |
+| ------------------------ | ---------------------------- | ----------------------------------------- |
+| Mutable defaults         | `def f(x=[])`                | Use `None`, create in function            |
+| Mutating while iterating | Skips items                  | Iterate over copy or use comprehension    |
+| `is` vs `==`             | Identity vs equality         | Use `is` only for `None`, `True`, `False` |
+| Late binding             | Captures variable, not value | Use default argument to capture           |
+| Falsy values             | Empty != None                | Be explicit in checks                     |
+| Float precision          | 0.1 + 0.2 != 0.3             | Use `math.isclose()` or `Decimal`         |
+| Bare except              | Catches too much             | Catch specific exceptions                 |
+| Dict iteration           | Can't modify during          | Iterate over `list(d.keys())`             |
+| Circular imports         | Import errors                | Import inside function or import module   |
+| Class attributes         | Shared unexpectedly          | Initialize in `__init__`                  |
 
-| Falsy Values | Examples |
-|--------------|----------|
-| Boolean | `False` |
-| None | `None` |
-| Numbers | `0`, `0.0`, `0j` |
+| Falsy Values      | Examples                  |
+| ----------------- | ------------------------- |
+| Boolean           | `False`                   |
+| None              | `None`                    |
+| Numbers           | `0`, `0.0`, `0j`          |
 | Empty collections | `""`, `[]`, `{}`, `set()` |
 
-| Scope Rule | Order |
-|------------|-------|
-| LEGB | Local → Enclosing → Global → Built-in |
-| `global` | Access module-level variable |
-| `nonlocal` | Access enclosing function variable |
+| Scope Rule | Order                                 |
+| ---------- | ------------------------------------- |
+| LEGB       | Local → Enclosing → Global → Built-in |
+| `global`   | Access module-level variable          |
+| `nonlocal` | Access enclosing function variable    |
 
 ## When to Use This Skill
 
 Use for **debugging and prevention**:
+
 - Understanding why code behaves unexpectedly
 - Avoiding common Python pitfalls
 - Reviewing code for subtle bugs
@@ -42,13 +48,14 @@ Use for **debugging and prevention**:
 - Fixing mutable default arguments
 
 **Related skills:**
+
 - For fundamentals: see `python-fundamentals-313`
 - For testing: see `python-testing`
 - For type hints: see `python-type-hints`
 
 ---
 
-# Python Common Gotchas and Pitfalls
+## Python Common Gotchas and Pitfalls
 
 ## Overview
 
@@ -533,18 +540,3 @@ class MyClass:
     def add_item(self, item):
         self.items.append(item)
 ```
-
-## Quick Reference
-
-| Gotcha | Problem | Solution |
-|--------|---------|----------|
-| Mutable defaults | `def f(x=[])` | Use `None`, create in function |
-| Mutating while iterating | Skips items | Iterate over copy or use comprehension |
-| `is` vs `==` | Identity vs equality | Use `is` only for `None`, `True`, `False` |
-| Late binding | Captures variable, not value | Use default argument to capture |
-| Falsy values | Empty != None | Be explicit in checks |
-| Float precision | 0.1 + 0.2 != 0.3 | Use `math.isclose()` or `Decimal` |
-| Bare except | Catches too much | Catch specific exceptions |
-| Dict iteration | Can't modify during | Iterate over `list(d.keys())` |
-| Circular imports | Import errors | Import inside function or import module |
-| Class attributes | Shared unexpectedly | Initialize in `__init__` |

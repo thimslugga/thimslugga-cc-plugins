@@ -1,12 +1,14 @@
 # Build-Time & Runtime Security (Detailed Reference)
 
-Complete recipes for Docker build-time secrets, multi-stage hardening, BuildKit isolation, capability drops, seccomp / AppArmor profiles, read-only root, user namespaces, resource limits, and rootless runtime. SKILL.md keeps the principle headlines; this reference has the full commands and examples.
+Complete recipes for Docker build-time secrets, multi-stage hardening, BuildKit isolation, capability drops, seccomp / AppArmor profiles, read-only root, user namespaces, resource limits, and rootless
+runtime. SKILL.md keeps the principle headlines; this reference has the full commands and examples.
 
 ## Build-Time Security
 
 ### Secrets Management
 
 **NEVER:**
+
 ```dockerfile
 # BAD - Secret in layer history
 ENV API_KEY=abc123
@@ -15,6 +17,7 @@ COPY .env /app/.env
 ```
 
 **DO:**
+
 ```dockerfile
 # Use BuildKit secrets
 # syntax=docker/dockerfile:1
@@ -34,12 +37,14 @@ docker build --secret id=github_token,src=./token.txt .
 **Threat:** Malicious or compromised BuildKit frontends can execute arbitrary code during build
 
 **🚨 2025 CRITICAL WARNING:** BuildKit supports custom frontends (parsers) via `# syntax=` directive. Untrusted frontends have FULL BUILD-TIME code execution and can:
+
 - Steal secrets from build context
 - Modify build outputs
 - Exfiltrate data
 - Compromise the build environment
 
 **Risk Example:**
+
 ```dockerfile
 # 🔴 DANGER - Untrusted frontend (code execution risk!)
 # syntax=docker/dockerfile:1@sha256:abc123...untrusted
@@ -51,6 +56,7 @@ RUN echo "This frontend could do anything during build"
 **Mitigation:**
 
 1. **Only use official Docker frontends:**
+
 ```dockerfile
 # ✅ Safe - Official Docker frontend
 # syntax=docker/dockerfile:1
@@ -63,12 +69,14 @@ RUN echo "This frontend could do anything during build"
 ```
 
 2. **Verify frontend sources:**
+
 - Use ONLY `docker/dockerfile:*` frontends
 - Pin to specific versions with SHA256 digest
 - Verify digests from official Docker documentation
 - Never use third-party frontends without thorough vetting
 
 3. **Audit all Dockerfiles for unsafe syntax directives:**
+
 ```bash
 # Check all Dockerfiles for potentially malicious syntax directives
 grep -r "^# syntax=" . --include="Dockerfile*"
@@ -78,6 +86,7 @@ grep -r "^# syntax=" . --include="Dockerfile*" | grep -v "docker/dockerfile"
 ```
 
 4. **BuildKit security configuration (defense in depth):**
+
 ```bash
 # Restrict frontend sources in BuildKit config
 # /etc/buildkit/buildkitd.toml
@@ -87,6 +96,7 @@ grep -r "^# syntax=" . --include="Dockerfile*" | grep -v "docker/dockerfile"
 ```
 
 **Supply Chain Protection:**
+
 - Treat custom frontends as HIGH RISK code execution vectors
 - Review ALL `# syntax=` directives in Dockerfiles before builds
 - Use content trust for frontend images
@@ -98,6 +108,7 @@ grep -r "^# syntax=" . --include="Dockerfile*" | grep -v "docker/dockerfile"
 **Critical 2025 Requirement:** Document origin and history of all components for supply chain transparency and compliance.
 
 **Why SBOM is Mandatory:**
+
 - Supply chain security visibility
 - Vulnerability tracking and response
 - Compliance requirements (Executive Order 14028, etc.)
@@ -105,6 +116,7 @@ grep -r "^# syntax=" . --include="Dockerfile*" | grep -v "docker/dockerfile"
 - Incident response readiness
 
 **Generate SBOM with Docker Scout:**
+
 ```bash
 # Generate SBOM for image
 docker scout sbom IMAGE_NAME
@@ -127,12 +139,14 @@ docker buildx imagetools inspect my-image:latest --format "{{ json .SBOM }}"
 
 **🚨 CRITICAL SECURITY LIMITATION:**
 BuildKit attestations (`--sbom=true`, `--provenance=true`) are **NOT cryptographically signed**. This means:
+
 - Anyone with push access can create tampered attestations
 - SBOMs can be incomplete or falsified
 - Provenance data cannot be trusted without external verification
 - **For production:** Use external signing tools (cosign, Notary) and Syft for SBOM generation
 
 **Generate SBOM with Syft:**
+
 ```bash
 # Install Syft
 curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh
@@ -149,6 +163,7 @@ syft dir:. -o spdx-json > sbom.spdx.json
 ```
 
 **SBOM in CI/CD Pipeline:**
+
 ```yaml
 # GitHub Actions example
 name: Build with SBOM
@@ -198,6 +213,7 @@ jobs:
    - Fail builds if SBOM generation fails
 
 4. **Use SBOM for vulnerability management:**
+
 ```bash
 # Scan SBOM instead of image (faster)
 grype sbom:sbom.json
@@ -213,6 +229,7 @@ diff <(syft old-image:1.0 -o json) <(syft new-image:2.0 -o json)
    - Choose based on compliance requirements
 
 **Chainguard Images with Built-in SBOM:**
+
 ```bash
 # Chainguard images include SBOM attestation by default
 docker buildx imagetools inspect cgr.dev/chainguard/node:latest
@@ -222,6 +239,7 @@ cosign download sbom cgr.dev/chainguard/node:latest > chainguard-node-sbom.json
 ```
 
 **Or use multi-stage and don't include secrets:**
+
 ```dockerfile
 FROM node AS builder
 ARG NPM_TOKEN
@@ -245,6 +263,7 @@ COPY --from=dependencies /app/node_modules ./node_modules
 
 **Mitigation:**
 Create comprehensive `.dockerignore`:
+
 ```bash
 # Secrets
 .env
@@ -279,6 +298,7 @@ logs/
 ### Image Signing
 
 **Enable Docker Content Trust:**
+
 ```bash
 # Enable image signing
 export DOCKER_CONTENT_TRUST=1
@@ -301,6 +321,7 @@ docker pull my-image:tag  # Fails if not signed
 **Threat:** Container escape via root
 
 **Mitigation:**
+
 ```dockerfile
 # Create and use non-root user
 FROM node:20-alpine
@@ -313,6 +334,7 @@ CMD ["node", "server.js"]
 ```
 
 **Verification:**
+
 ```bash
 # Check user in running container
 docker exec container-name whoami  # Should not be root
@@ -324,12 +346,14 @@ docker exec container-name id       # Check UID/GID
 **Threat:** Excessive kernel capabilities
 
 **Default Docker capabilities:**
+
 - CHOWN, DAC_OVERRIDE, FOWNER, FSETID
 - KILL, SETGID, SETUID, SETPCAP
 - NET_BIND_SERVICE, NET_RAW
 - SYS_CHROOT, MKNOD, AUDIT_WRITE, SETFCAP
 
 **Mitigation:**
+
 ```bash
 # Drop all, add only needed
 docker run \
@@ -339,6 +363,7 @@ docker run \
 ```
 
 **In docker-compose.yml:**
+
 ```yaml
 services:
   app:
@@ -349,6 +374,7 @@ services:
 ```
 
 **Common needed capabilities:**
+
 - `NET_BIND_SERVICE`: Bind to ports < 1024
 - `NET_ADMIN`: Network configuration
 - `SYS_TIME`: Set system time
@@ -358,6 +384,7 @@ services:
 **Threat:** Container modification, malware persistence
 
 **Mitigation:**
+
 ```bash
 docker run \
   --read-only \
@@ -367,6 +394,7 @@ docker run \
 ```
 
 **In Compose:**
+
 ```yaml
 services:
   app:
@@ -379,6 +407,7 @@ services:
 ### Security Options
 
 **no-new-privileges:**
+
 ```bash
 docker run --security-opt="no-new-privileges:true" my-image
 ```
@@ -386,16 +415,19 @@ docker run --security-opt="no-new-privileges:true" my-image
 Prevents privilege escalation via setuid/setgid binaries.
 
 **AppArmor (Linux):**
+
 ```bash
 docker run --security-opt="apparmor=docker-default" my-image
 ```
 
 **SELinux (Linux):**
+
 ```bash
 docker run --security-opt="label=type:container_runtime_t" my-image
 ```
 
 **Seccomp (syscall filtering):**
+
 ```bash
 # Use default profile
 docker run --security-opt="seccomp=default" my-image
@@ -409,6 +441,7 @@ docker run --security-opt="seccomp=./seccomp-profile.json" my-image
 **Threat:** DoS via resource exhaustion
 
 **Mitigation:**
+
 ```bash
 docker run \
   --memory="512m" \
@@ -420,6 +453,7 @@ docker run \
 ```
 
 **In Compose:**
+
 ```yaml
 services:
   app:
@@ -462,4 +496,3 @@ docker run \
   --health-interval=30s \
   my-secure-image:1.2.3
 ```
-

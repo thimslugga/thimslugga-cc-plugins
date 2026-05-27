@@ -19,6 +19,7 @@ When running Docker commands in Git Bash (MINGW) or MSYS2 on Windows, automatic 
 MSYS/MINGW shells automatically convert arguments that look like Unix paths when calling Windows executables (like `docker.exe`):
 
 **Examples of problematic conversions:**
+
 ```bash
 # What you type:
 docker run -v /c/Users/project:/app myimage
@@ -28,11 +29,13 @@ docker run -v C:\Program Files\Git\c\Users\project:/app myimage
 ```
 
 **Triggers for path conversion:**
+
 - Leading forward slash (`/`) in arguments
 - Colon-separated path lists (`/foo:/bar`)
 - Arguments with path components after `-` or `,`
 
 **What's exempt from conversion:**
+
 - Arguments containing `=` (variable assignments)
 - Drive letters (`C:`)
 - Arguments with `;` (already Windows format)
@@ -143,11 +146,13 @@ docker run -v //c/Users/project:/app myimage
 ```
 
 **Advantages:**
+
 - No environment variables needed
 - Works without wrapper functions
 - Portable (extra slash ignored on Linux)
 
 **Disadvantages:**
+
 - Less readable
 - Easy to forget
 - Doesn't look like standard Docker syntax
@@ -328,16 +333,19 @@ MSYS_NO_PATHCONV=1 docker compose run -v $(pwd)/scripts:/scripts backend bash
 ### Problem: "No such file or directory" errors
 
 **Symptoms:**
+
 ```bash
 Error response from daemon: invalid mount config for type "bind":
 bind source path does not exist: C:\Program Files\Git\c\Users\project
 ```
 
 **Diagnosis:**
+
 - Path has been incorrectly converted by MINGW
 - Notice `C:\Program Files\Git\` prefix added
 
 **Solution:**
+
 ```bash
 # Add MSYS_NO_PATHCONV before command
 MSYS_NO_PATHCONV=1 docker run -v $(pwd):/app myimage
@@ -346,15 +354,18 @@ MSYS_NO_PATHCONV=1 docker run -v $(pwd):/app myimage
 ### Problem: Volume appears empty in container
 
 **Symptoms:**
+
 - Container starts successfully
 - But mounted directory is empty
 - Files exist on host
 
 **Diagnosis:**
+
 - Path conversion mangled the source path
 - Docker created empty directory instead
 
 **Solution:**
+
 ```bash
 # Use MSYS_NO_PATHCONV with $(pwd)
 MSYS_NO_PATHCONV=1 docker run -v $(pwd)/data:/data myimage
@@ -369,15 +380,18 @@ docker run -v my-named-volume:/data myimage
 ### Problem: Path with spaces fails
 
 **Symptoms:**
+
 ```text
 Error: invalid reference format
 ```
 
 **Diagnosis:**
+
 - Spaces in Windows paths not properly quoted
 - Path conversion + spaces = disaster
 
 **Solution:**
+
 ```bash
 # Use MSYS_NO_PATHCONV and quote $(pwd)
 MSYS_NO_PATHCONV=1 docker run -v "$(pwd)":/app myimage
@@ -392,10 +406,12 @@ MSYS_NO_PATHCONV=1 docker run -v "$(pwd)":/app myimage
 ### Problem: $PWD not working correctly
 
 **Symptoms:**
+
 - Using `$PWD` variable instead of `$(pwd)`
 - Inconsistent behavior
 
 **Solution:**
+
 ```bash
 # WRONG: Using $PWD
 docker run -v $PWD:/app myimage
@@ -441,6 +457,7 @@ echo "Testing complete!"
 ```
 
 Run it:
+
 ```bash
 chmod +x test-docker-volume.sh
 ./test-docker-volume.sh
@@ -488,12 +505,12 @@ fi
 
 ### Environment Variables
 
-| Variable | Purpose | Values |
-|----------|---------|--------|
-| `MSYS_NO_PATHCONV` | Disable all path conversion (Git Bash) | `1` to disable |
-| `MSYS2_ARG_CONV_EXCL` | Exclude specific arguments (MSYS2) | `'*'` or patterns |
-| `MSYS2_ENV_CONV_EXCL` | Exclude environment variables (MSYS2) | `'*'` or patterns |
-| `MSYSTEM` | MSYS subsystem indicator | `MINGW64`, `MINGW32`, `MSYS` |
+| Variable              | Purpose                                | Values                       |
+| --------------------- | -------------------------------------- | ---------------------------- |
+| `MSYS_NO_PATHCONV`    | Disable all path conversion (Git Bash) | `1` to disable               |
+| `MSYS2_ARG_CONV_EXCL` | Exclude specific arguments (MSYS2)     | `'*'` or patterns            |
+| `MSYS2_ENV_CONV_EXCL` | Exclude environment variables (MSYS2)  | `'*'` or patterns            |
+| `MSYSTEM`             | MSYS subsystem indicator               | `MINGW64`, `MINGW32`, `MSYS` |
 
 ### Command Patterns
 

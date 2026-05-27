@@ -1,18 +1,21 @@
 # Windows Docker Platform (Detailed Reference)
 
-Windows container types (Server containers, Hyper-V, process isolation), WSL2 integration, image variants (`nanoserver`, `windowsservercore`), licensing, networking peculiarities, mount semantics, and Visual Studio integration.
+Windows container types (Server containers, Hyper-V, process isolation), WSL2 integration, image variants (`nanoserver`, `windowsservercore`), licensing, networking peculiarities, mount semantics, and
+Visual Studio integration.
 
 ## Windows
 
 ### Windows Container Types
 
 **1. Linux Containers on Windows (LCOW):**
+
 - Most common for development
 - Uses WSL2 or Hyper-V backend
 - Runs Linux containers
 - Good compatibility
 
 **2. Windows Containers:**
+
 - Native Windows containers
 - For Windows-specific workloads
 - Requires Windows Server base images
@@ -21,12 +24,14 @@ Windows container types (Server containers, Hyper-V, process isolation), WSL2 in
 ### Windows Backend Options
 
 **WSL2 Backend (Recommended):**
+
 - Faster
 - Better resource usage
 - Native Linux kernel
 - Requires Windows 10/11 (recent versions)
 
 **Hyper-V Backend:**
+
 - Older option
 - More resource intensive
 - Works on older Windows versions
@@ -34,6 +39,7 @@ Windows container types (Server containers, Hyper-V, process isolation), WSL2 in
 ### WSL2 Configuration
 
 **Enable WSL2:**
+
 ```powershell
 # Run as Administrator
 wsl --install
@@ -50,6 +56,7 @@ wsl --install -d Ubuntu
 ```
 
 **Docker Desktop Integration:**
+
 ```text
 Settings → Resources → WSL Integration
 - Enable integration with default distro
@@ -59,6 +66,7 @@ Settings → Resources → WSL Integration
 ### Windows Path Considerations
 
 **Path Formats:**
+
 ```bash
 # Forward slashes (recommended, works everywhere)
 docker run -v C:/Users/name/project:/app myimage
@@ -80,6 +88,7 @@ volumes:
 **CRITICAL ISSUE:** When using Docker in Git Bash (MINGW) on Windows, automatic path conversion breaks volume mounts.
 
 **The Problem:**
+
 ```bash
 # What you type in Git Bash:
 docker run -v $(pwd):/app myimage
@@ -91,6 +100,7 @@ docker run -v C:\Program Files\Git\d\repos\project:/app myimage
 **Solutions:**
 
 **1. MSYS_NO_PATHCONV (Recommended):**
+
 ```bash
 # Per-command fix
 MSYS_NO_PATHCONV=1 docker run -v $(pwd):/app myimage
@@ -106,6 +116,7 @@ export -f docker
 ```
 
 **2. Double Slash Workaround:**
+
 ```bash
 # Use double leading slash to prevent conversion
 docker run -v //c/Users/project:/app myimage
@@ -115,23 +126,27 @@ docker run -v //$(pwd):/app myimage
 ```
 
 **3. Named Volumes (No Path Issues):**
+
 ```bash
 # Named volumes work without any fixes
 docker run -v my-data:/data myimage
 ```
 
 **What Works Without Modification:**
+
 - Docker Compose YAML files with relative paths
 - Named volumes
 - Network and image commands
 - Container commands without volumes
 
 **What Needs MSYS_NO_PATHCONV:**
+
 - Bind mounts with `$(pwd)`
 - Bind mounts with absolute Unix-style paths
 - Volume mounts specified on command line
 
 **Shell Detection:**
+
 ```bash
 # Detect Git Bash/MINGW and auto-configure
 if [ -n "$MSYSTEM" ] || [[ "$(uname -s)" == MINGW* ]]; then
@@ -141,6 +156,7 @@ fi
 ```
 
 **Recommended ~/.bashrc Configuration:**
+
 ```bash
 # Docker on Git Bash fix
 if [ -n "$MSYSTEM" ]; then
@@ -153,12 +169,14 @@ See the `docker-git-bash-guide` skill for comprehensive path conversion document
 ### Windows File Sharing
 
 **Configure Shared Drives:**
+
 ```text
 Docker Desktop → Settings → Resources → File Sharing
 Add: C:\, D:\, etc.
 ```
 
 **Performance Considerations:**
+
 - File sharing is slower than Linux/Mac
 - Use WSL2 backend for better performance
 - Store frequently accessed files in WSL2 filesystem
@@ -168,6 +186,7 @@ Add: C:\, D:\, etc.
 **Problem:** CRLF vs LF line endings
 
 **Solution:**
+
 ```bash
 # Git configuration
 git config --global core.autocrlf input
@@ -214,6 +233,7 @@ docker info | Select-String "OSType"
 **Problem:** WSL2 VHDX grows but doesn't shrink
 
 **Solution:**
+
 ```powershell
 # Stop Docker Desktop and WSL
 wsl --shutdown
@@ -261,6 +281,7 @@ volumes:
 
 **Problem:** Permission denied errors
 **Solution:**
+
 ```powershell
 # Run Docker Desktop as Administrator
 # Or grant permissions to Docker Desktop
@@ -269,13 +290,14 @@ icacls "C:\ProgramData\DockerDesktop" /grant Users:F /T
 
 **Problem:** Slow performance
 **Solution:**
+
 - Use WSL2 backend
 - Store project in WSL2 filesystem (`\\wsl$\Ubuntu\home\user\project`)
 - Use named volumes for node_modules, etc.
 
 **Problem:** Path not found
 **Solution:**
+
 - Use forward slashes
 - Ensure drive is shared in Docker Desktop
 - Use absolute paths or `${PWD}`
-

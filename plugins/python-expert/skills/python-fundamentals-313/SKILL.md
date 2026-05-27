@@ -7,27 +7,30 @@ description: |
   Ensures correct Python 3.13+ patterns with optimal performance.
 ---
 
+# Python fundamentals (3.13+)
+
 ## Quick Reference
 
-| Feature | Version | Syntax |
-|---------|---------|--------|
-| Free-threading | 3.13t | `python3.13t script.py` |
-| JIT compiler | 3.13 | `PYTHON_JIT=1 python3.13 script.py` |
-| Pattern matching | 3.10+ | `match x: case {...}:` |
-| Walrus operator | 3.8+ | `if (n := len(x)) > 10:` |
-| Type params | 3.12+ | `def first[T](items: list[T]) -> T:` |
-| Type alias | 3.12+ | `type Point = tuple[float, float]` |
+| Feature          | Version | Syntax                               |
+| ---------------- | ------- | ------------------------------------ |
+| Free-threading   | 3.13t   | `python3.13t script.py`              |
+| JIT compiler     | 3.13    | `PYTHON_JIT=1 python3.13 script.py`  |
+| Pattern matching | 3.10+   | `match x: case {...}:`               |
+| Walrus operator  | 3.8+    | `if (n := len(x)) > 10:`             |
+| Type params      | 3.12+   | `def first[T](items: list[T]) -> T:` |
+| Type alias       | 3.12+   | `type Point = tuple[float, float]`   |
 
-| Construct | Code | Use Case |
-|-----------|------|----------|
-| Exception Group | `ExceptionGroup("msg", [e1, e2])` | Multiple errors |
-| except* | `except* ValueError as eg:` | Handle groups |
-| @dataclass(slots=True) | Memory efficient | High-volume objects |
-| StrEnum | `class Status(StrEnum):` | String enums 3.11+ |
+| Construct              | Code                              | Use Case            |
+| ---------------------- | --------------------------------- | ------------------- |
+| Exception Group        | `ExceptionGroup("msg", [e1, e2])` | Multiple errors     |
+| except*                | `except* ValueError as eg:`       | Handle groups       |
+| @dataclass(slots=True) | Memory efficient                  | High-volume objects |
+| StrEnum                | `class Status(StrEnum):`          | String enums 3.11+  |
 
 ## When to Use This Skill
 
 Use for **Python 3.13+ fundamentals**:
+
 - Learning Python 3.13 new features (free-threading, JIT)
 - Using modern pattern matching syntax
 - Writing type-annotated generic functions
@@ -35,13 +38,14 @@ Use for **Python 3.13+ fundamentals**:
 - Understanding Python naming conventions
 
 **Related skills:**
+
 - For type hints: see `python-type-hints`
 - For async: see `python-asyncio`
 - For common mistakes: see `python-gotchas`
 
 ---
 
-# Python 3.13+ Fundamentals
+## Python 3.13+ Fundamentals
 
 ## Overview
 
@@ -77,6 +81,7 @@ for t in threads:
 ```
 
 **Key Points:**
+
 - Requires separate executable: `python3.13t`
 - Build with `--disable-gil` option
 - Best for CPU-bound multi-threaded workloads

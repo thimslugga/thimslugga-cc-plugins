@@ -6,36 +6,6 @@ description: |
   Provides: Dockerfile templates by language, image-size optimization checklist, .dockerignore template, HEALTHCHECK patterns, and Compose dev-stack examples.
 ---
 
-## 🚨 CRITICAL GUIDELINES
-
-### Windows File Path Requirements
-
-**MANDATORY: Always Use Backslashes on Windows for File Paths**
-
-When using Edit or Write tools on Windows, you MUST use backslashes (`\`) in file paths, NOT forward slashes (`/`).
-
-**Examples:**
-- ❌ WRONG: `D:/repos/project/file.tsx`
-- ✅ CORRECT: `D:\repos\project\file.tsx`
-
-This applies to:
-- Edit tool file_path parameter
-- Write tool file_path parameter
-- All file operations on Windows systems
-
-
-### Documentation Guidelines
-
-**NEVER create new documentation files unless explicitly requested by the user.**
-
-- **Priority**: Update existing README.md files rather than creating new documentation
-- **Repository cleanliness**: Keep repository root clean - only README.md unless user requests otherwise
-- **Style**: Documentation should be concise, direct, and professional - avoid AI-generated tone
-- **User preference**: Only create additional .md files when user specifically asks for documentation
-
-
----
-
 # Docker Best Practices
 
 This skill provides current Docker best practices across all aspects of container development, deployment, and operation.
@@ -45,12 +15,14 @@ This skill provides current Docker best practices across all aspects of containe
 ### Base Image Selection
 
 **2025 Recommended Hierarchy:**
+
 1. **Wolfi/Chainguard** (`cgr.dev/chainguard/*`) - Zero-CVE goal, SBOM included
 2. **Alpine** (`alpine:3.19`) - ~7MB, minimal attack surface
 3. **Distroless** (`gcr.io/distroless/*`) - ~2MB, no shell
 4. **Slim variants** (`node:20-slim`) - ~70MB, balanced
 
 **Key rules:**
+
 - Always specify exact version tags: `node:20.11.0-alpine3.19`
 - Never use `latest` (unpredictable, breaks reproducibility)
 - Use official images from trusted registries
@@ -59,6 +31,7 @@ This skill provides current Docker best practices across all aspects of containe
 ### Dockerfile Structure
 
 **Optimal layer ordering** (least to most frequently changing):
+
 ```dockerfile
 1. Base image and system dependencies
 2. Application dependencies (package.json, requirements.txt, etc.)
@@ -69,6 +42,7 @@ This skill provides current Docker best practices across all aspects of containe
 **Rationale:** Docker caches layers. If code changes but dependencies don't, cached dependency layers are reused, speeding up builds.
 
 **Example:**
+
 ```dockerfile
 FROM python:3.12-slim
 
@@ -112,6 +86,7 @@ CMD ["node", "dist/server.js"]
 ```
 
 **Benefits:**
+
 - Smaller final images (no build tools)
 - Better security (fewer attack vectors)
 - Faster deployment (smaller upload/download)
@@ -224,6 +199,7 @@ HEALTHCHECK --interval=30s --timeout=3s --retries=3 --start-period=40s \
 ```
 
 Or in compose:
+
 ```yaml
 services:
   app:
@@ -250,6 +226,7 @@ services:
 ```
 
 Or system-wide in `/etc/docker/daemon.json`:
+
 ```json
 {
   "log-driver": "json-file",
@@ -363,6 +340,7 @@ services:
 ```
 
 **Important:**
+
 - Add `.env` to `.gitignore`
 - Provide `.env.example` as template
 - Never commit secrets to version control
@@ -401,6 +379,7 @@ my-app:1.2.3-staging
 ### Secrets Management
 
 **Never do this:**
+
 ```dockerfile
 # BAD - secret in layer history
 ENV API_KEY=secret123
@@ -408,6 +387,7 @@ RUN echo "password" > /app/config
 ```
 
 **Do this:**
+
 ```bash
 # Use Docker secrets (Swarm) or external secret management
 docker secret create db_password ./password.txt
@@ -587,6 +567,7 @@ USER appuser
 ## Security Best Practices Summary
 
 **Image Security:**
+
 - Use official, minimal base images
 - Scan for vulnerabilities (Docker Scout, Trivy)
 - Don't include secrets in layers
@@ -594,6 +575,7 @@ USER appuser
 - Keep images updated
 
 **Runtime Security:**
+
 - Drop capabilities
 - Use read-only filesystem
 - Set resource limits
@@ -602,6 +584,7 @@ USER appuser
 - Use secrets management
 
 **Compliance:**
+
 - Follow CIS Docker Benchmark
 - Implement container scanning in CI/CD
 - Use signed images (Docker Content Trust)
@@ -611,6 +594,7 @@ USER appuser
 ## Common Anti-Patterns to Avoid
 
 ❌ **Don't:**
+
 - Run as root
 - Use `--privileged`
 - Mount Docker socket
@@ -625,6 +609,7 @@ USER appuser
 - Commit secrets to Git
 
 ✅ **Do:**
+
 - Run as non-root
 - Use minimal capabilities
 - Isolate containers

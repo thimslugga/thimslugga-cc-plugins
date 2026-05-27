@@ -6,36 +6,6 @@ description: |
   Provides: hardening checklist, scan-tool integration recipes, CIS benchmark mapping, secret handling patterns, and capability-drop reference.
 ---
 
-## 🚨 CRITICAL GUIDELINES
-
-### Windows File Path Requirements
-
-**MANDATORY: Always Use Backslashes on Windows for File Paths**
-
-When using Edit or Write tools on Windows, you MUST use backslashes (`\`) in file paths, NOT forward slashes (`/`).
-
-**Examples:**
-- ❌ WRONG: `D:/repos/project/file.tsx`
-- ✅ CORRECT: `D:\repos\project\file.tsx`
-
-This applies to:
-- Edit tool file_path parameter
-- Write tool file_path parameter
-- All file operations on Windows systems
-
-
-### Documentation Guidelines
-
-**NEVER create new documentation files unless explicitly requested by the user.**
-
-- **Priority**: Update existing README.md files rather than creating new documentation
-- **Repository cleanliness**: Keep repository root clean - only README.md unless user requests otherwise
-- **Style**: Documentation should be concise, direct, and professional - avoid AI-generated tone
-- **User preference**: Only create additional .md files when user specifically asks for documentation
-
-
----
-
 # Docker Security Guide
 
 This skill provides comprehensive security guidelines for Docker across all platforms, covering threats, mitigations, and compliance requirements.
@@ -45,6 +15,7 @@ This skill provides comprehensive security guidelines for Docker across all plat
 ### Defense in Depth
 
 Apply security at multiple layers:
+
 1. **Image security:** Minimal, scanned, signed images
 2. **Build security:** Secure build process, no secrets in layers
 3. **Runtime security:** Restricted capabilities, resource limits
@@ -56,6 +27,7 @@ Apply security at multiple layers:
 ### Least Privilege
 
 Grant only the minimum permissions necessary:
+
 - Non-root users
 - Dropped capabilities
 - Read-only filesystems
@@ -70,6 +42,7 @@ Grant only the minimum permissions necessary:
 **Threat:** Vulnerable or malicious base images
 
 **Mitigation:**
+
 ```dockerfile
 # Use official images only
 FROM node:20.11.0-alpine3.19  # Official, specific version
@@ -80,6 +53,7 @@ FROM node:latest      # Unpredictable, can break
 ```
 
 **Verification:**
+
 ```bash
 # Verify image source
 docker image inspect node:20-alpine | grep -A 5 "Author"
@@ -94,6 +68,7 @@ docker pull node:20-alpine
 **Threat:** Larger attack surface, more vulnerabilities
 
 **Mitigation:**
+
 ```dockerfile
 # Prefer minimal distributions
 FROM alpine:3.19           # ~7MB
@@ -105,6 +80,7 @@ FROM ubuntu:22.04          # ~77MB with more packages
 ```
 
 **Benefits:**
+
 - Fewer packages = fewer vulnerabilities
 - Smaller attack surface
 - Faster downloads and starts
@@ -113,11 +89,13 @@ FROM ubuntu:22.04          # ~77MB with more packages
 ### Micro-Distros for Security-Critical Applications (2025)
 
 **Wolfi/Chainguard Images:**
+
 - Zero-CVE goal, SBOM included by default
 - Nightly security patches, signed with provenance
 - Available for: Node, Python, Go, Java, .NET, etc.
 
 **Usage:**
+
 ```dockerfile
 # Development stage (includes build tools)
 FROM cgr.dev/chainguard/node:latest-dev AS builder
@@ -141,6 +119,7 @@ See `docker-best-practices` skill for full image comparison table.
 ### Vulnerability Scanning
 
 **Tools:**
+
 - Docker Scout (built-in)
 - Trivy
 - Grype
@@ -148,6 +127,7 @@ See `docker-best-practices` skill for full image comparison table.
 - Clair
 
 **Process:**
+
 ```bash
 # Scan with Docker Scout
 docker scout cves IMAGE_NAME
@@ -165,6 +145,7 @@ trivy fs --scanners secret .
 ```
 
 **CI/CD Integration:**
+
 ```yaml
 # GitHub Actions example
 - name: Scan image
@@ -178,6 +159,7 @@ trivy fs --scanners secret .
 **Threat:** Build tools and secrets in final image
 
 **Mitigation:**
+
 ```dockerfile
 # Build stage with build tools
 FROM golang:1.21 AS builder
@@ -193,13 +175,15 @@ ENTRYPOINT ["/app"]
 ```
 
 **Benefits:**
+
 - No compiler/build tools in production image
 - Secrets used in build don't persist
 - Smaller, more secure final image
 
 ## Build-Time & Runtime Security
 
-Complete recipes for build secrets (`--mount=type=secret`, BuildKit), multi-stage hardening, capability drops (`--cap-drop=ALL`), seccomp / AppArmor profiles, read-only root, user namespaces, resource limits, and rootless runtime live in `references/build-runtime-security.md`. Core principles:
+Complete recipes for build secrets (`--mount=type=secret`, BuildKit), multi-stage hardening, capability drops (`--cap-drop=ALL`), seccomp / AppArmor profiles, read-only root, user namespaces, resource
+limits, and rootless runtime live in `references/build-runtime-security.md`. Core principles:
 
 - **Build secrets:** use `--mount=type=secret` and `--mount=type=ssh`; never `ARG`/`ENV` for sensitive values.
 - **Runtime:** drop all capabilities and add back what is needed; run read-only root; non-root user; resource limits; pinned image digests.
@@ -214,6 +198,7 @@ See `references/build-runtime-security.md` for all commands and recipes.
 **Threat:** Lateral movement between containers
 
 **Mitigation:**
+
 ```yaml
 networks:
   frontend:
@@ -242,6 +227,7 @@ services:
 **Threat:** Unnecessary network exposure
 
 **Mitigation:**
+
 ```bash
 # Bind to localhost only
 docker run -p 127.0.0.1:8080:8080 my-image
@@ -251,6 +237,7 @@ docker run -p 8080:8080 my-image
 ```
 
 **In Compose:**
+
 ```yaml
 services:
   app:
@@ -269,6 +256,7 @@ services:
 ```
 
 Then explicitly allow via networks:
+
 ```yaml
 services:
   app1:
@@ -301,6 +289,7 @@ docker service create \
 ```
 
 **In stack file:**
+
 ```yaml
 version: '3.8'
 
@@ -325,6 +314,7 @@ secrets:
 6. **Rotate regularly**
 
 **Alternative: Mounted secrets:**
+
 ```bash
 docker run -v /secure/secrets:/run/secrets:ro my-image
 ```
@@ -334,6 +324,7 @@ docker run -v /secure/secrets:/run/secrets:ro my-image
 ### CIS Docker Benchmark
 
 Automated checking:
+
 ```bash
 # Clone docker-bench-security
 git clone https://github.com/docker/docker-bench-security.git
@@ -394,6 +385,7 @@ services:
 ```
 
 **Centralized logging:**
+
 ```yaml
 services:
   app:
@@ -407,12 +399,14 @@ services:
 ### Runtime Monitoring
 
 **Tools:**
+
 - Falco: Runtime security monitoring
 - Sysdig: Container visibility
 - Prometheus + cAdvisor: Metrics
 - Docker events: Real-time events
 
 **Monitor for:**
+
 - Unexpected processes
 - File modifications
 - Network connections
@@ -441,6 +435,7 @@ docker run --rm -it \
 ### Linux
 
 **User namespace remapping:**
+
 ```json
 // /etc/docker/daemon.json
 {
@@ -451,6 +446,7 @@ docker run --rm -it \
 Benefits: Root in container → unprivileged on host
 
 **SELinux:**
+
 ```bash
 # Enable SELinux for Docker
 setenforce 1
@@ -463,6 +459,7 @@ docker run -v /host/path:/container/path:z my-image
 ```
 
 **AppArmor:**
+
 ```bash
 # Check AppArmor status
 aa-status
@@ -474,12 +471,14 @@ docker run --security-opt apparmor=docker-default my-image
 ### Windows
 
 **Hyper-V isolation:**
+
 ```powershell
 # More isolated than process isolation
 docker run --isolation=hyperv my-image
 ```
 
 **Windows Defender:**
+
 - Ensure real-time protection enabled
 - Configure exclusions carefully
 - Scan images regularly
@@ -487,6 +486,7 @@ docker run --isolation=hyperv my-image
 ### macOS
 
 **Docker Desktop security:**
+
 - Keep Docker Desktop updated
 - Enable "Use gRPC FUSE for file sharing"
 - Limit file sharing to necessary paths
@@ -495,6 +495,7 @@ docker run --isolation=hyperv my-image
 ## Security Checklist
 
 **Image:**
+
 - [ ] Based on official, minimal image
 - [ ] Specific version tag (not `latest`)
 - [ ] Scanned for vulnerabilities
@@ -503,12 +504,14 @@ docker run --isolation=hyperv my-image
 - [ ] Signed (Content Trust)
 
 **Build:**
+
 - [ ] .dockerignore configured
 - [ ] Multi-stage build (if applicable)
 - [ ] Build secrets handled properly
 - [ ] Build from trusted sources only
 
 **Runtime:**
+
 - [ ] Non-root user
 - [ ] Capabilities dropped
 - [ ] Read-only filesystem (where possible)
@@ -519,6 +522,7 @@ docker run --isolation=hyperv my-image
 - [ ] Secrets mounted securely
 
 **Operations:**
+
 - [ ] CIS benchmark compliance
 - [ ] Logging configured
 - [ ] Monitoring in place
@@ -530,6 +534,7 @@ docker run --isolation=hyperv my-image
 ## Common Security Mistakes
 
 ❌ **NEVER:**
+
 - Run as root
 - Use `--privileged`
 - Mount Docker socket (`/var/run/docker.sock`)
@@ -542,6 +547,7 @@ docker run --isolation=hyperv my-image
 - Trust unverified images
 
 ✅ **ALWAYS:**
+
 - Run as non-root
 - Drop capabilities
 - Scan for vulnerabilities

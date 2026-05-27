@@ -7,34 +7,36 @@ description: |
   Ensures modern Python project setup with fast tooling.
 ---
 
+# Python package management (uv)
+
 ## Quick Reference
 
-| uv Command | Purpose |
-|------------|---------|
-| `uv init my-project` | Create new project |
-| `uv add <package>` | Add dependency |
-| `uv add --dev <package>` | Add dev dependency |
-| `uv sync` | Install all dependencies |
-| `uv run <command>` | Run in virtual env |
-| `uv lock --upgrade` | Update all deps |
-| `uv python install 3.13` | Install Python version |
+| uv Command               | Purpose                  |
+| ------------------------ | ------------------------ |
+| `uv init my-project`     | Create new project       |
+| `uv add <package>`       | Add dependency           |
+| `uv add --dev <package>` | Add dev dependency       |
+| `uv sync`                | Install all dependencies |
+| `uv run <command>`       | Run in virtual env       |
+| `uv lock --upgrade`      | Update all deps          |
+| `uv python install 3.13` | Install Python version   |
 
-| Tool | Command | Speed |
-|------|---------|-------|
-| uv | `uv add requests` | 10-100x faster |
-| pip | `pip install requests` | Baseline |
+| Tool | Command                | Speed          |
+| ---- | ---------------------- | -------------- |
+| uv   | `uv add requests`      | 10-100x faster |
+| pip  | `pip install requests` | Baseline       |
 
-| ruff Command | Purpose |
-|--------------|---------|
-| `ruff check .` | Lint code |
+| ruff Command         | Purpose         |
+| -------------------- | --------------- |
+| `ruff check .`       | Lint code       |
 | `ruff check --fix .` | Auto-fix issues |
-| `ruff format .` | Format code |
+| `ruff format .`      | Format code     |
 
-| Project Layout | Recommended |
-|----------------|-------------|
-| src layout | `src/my_package/` |
-| Tests | `tests/` |
-| Config | `pyproject.toml` |
+| Project Layout | Recommended       |
+| -------------- | ----------------- |
+| src layout     | `src/my_package/` |
+| Tests          | `tests/`          |
+| Config         | `pyproject.toml`  |
 
 ## When to Use This Skill
 
@@ -54,11 +56,12 @@ Use for **project setup and dependencies**:
 
 ---
 
-# Python Package Management (2025)
+## Python Package Management (2025)
 
 ## Overview
 
-Modern Python package management centers around `uv` (the fast Rust-based tool), `pip`, and `pyproject.toml`. This guide covers best practices for dependency management, virtual environments, and project configuration.
+Modern Python package management centers around `uv` (the fast Rust-based tool), `pip`, and `pyproject.toml`. This guide covers best practices for dependency management, virtual environments, and
+project configuration.
 
 ## uv - The Modern Package Manager
 
@@ -79,11 +82,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Windows (PowerShell)
 irm https://astral.sh/uv/install.ps1 | iex
 
-# pip (works everywhere)
-pip install uv
-
-# Homebrew
+# Homebrew (macOS/Linux)
 brew install uv
+
+# python3 -m pip (works everywhere)
+python3 -m pip install uv
 ```
 
 ### Quick Start
@@ -510,7 +513,7 @@ pip-compile pyproject.toml -o requirements.txt
 pip-compile pyproject.toml --extra dev -o requirements-dev.txt
 
 # Freeze current environment (not recommended for reproducibility)
-pip freeze > requirements.txt
+python3 -m pip freeze > requirements.txt
 ```
 
 ## Virtual Environment Best Practices
@@ -530,18 +533,12 @@ uv venv
 
 # Explicit location
 uv venv .venv
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### .gitignore
 
 ```gitignore
-# Virtual environments
-.venv/
-venv/
-ENV/
-env/
-
 # Python
 __pycache__/
 *.py[cod]
@@ -554,12 +551,6 @@ build/
 dist/
 *.egg-info/
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
 # Testing
 .pytest_cache/
 .coverage
@@ -568,6 +559,18 @@ htmlcov/
 
 # Ruff
 .ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Editors
+*.swp
+*.swo
+.vscode/
+.idea/
 ```
 
 ### Activation (when needed)

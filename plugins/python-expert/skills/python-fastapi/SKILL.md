@@ -7,39 +7,42 @@ description: |
   Ensures production-ready FastAPI applications.
 ---
 
+# Python fastapi
+
 ## Quick Reference
 
-| Layer | File | Purpose |
-|-------|------|---------|
-| Entrypoint | `main.py` | App factory, lifespan |
-| Config | `config.py` | pydantic-settings |
-| Routes | `api/v1/endpoints/` | Endpoint handlers |
-| Schemas | `schemas/` | Pydantic models |
-| Models | `models/` | SQLAlchemy models |
-| Services | `services/` | Business logic |
-| Deps | `api/deps.py` | Dependency injection |
+| Layer      | File                | Purpose               |
+| ---------- | ------------------- | --------------------- |
+| Entrypoint | `main.py`           | App factory, lifespan |
+| Config     | `config.py`         | pydantic-settings     |
+| Routes     | `api/v1/endpoints/` | Endpoint handlers     |
+| Schemas    | `schemas/`          | Pydantic models       |
+| Models     | `models/`           | SQLAlchemy models     |
+| Services   | `services/`         | Business logic        |
+| Deps       | `api/deps.py`       | Dependency injection  |
 
-| Pydantic Pattern | Use Case |
-|------------------|----------|
-| `UserCreate` | Input for creation |
-| `UserUpdate` | Input for updates |
-| `UserResponse` | API output |
-| `UserInDB` | Internal with hash |
+| Pydantic Pattern | Use Case           |
+| ---------------- | ------------------ |
+| `UserCreate`     | Input for creation |
+| `UserUpdate`     | Input for updates  |
+| `UserResponse`   | API output         |
+| `UserInDB`       | Internal with hash |
 
-| Dependency | Code |
-|------------|------|
-| DB session | `db: Annotated[AsyncSession, Depends(get_db)]` |
+| Dependency   | Code                                               |
+| ------------ | -------------------------------------------------- |
+| DB session   | `db: Annotated[AsyncSession, Depends(get_db)]`     |
 | Current user | `user: Annotated[User, Depends(get_current_user)]` |
-| Type alias | `CurrentUser = Annotated[User, Depends(...)]` |
+| Type alias   | `CurrentUser = Annotated[User, Depends(...)]`      |
 
-| Production | Config |
-|------------|--------|
-| Server | `gunicorn -w 4 -k uvicorn.workers.UvicornWorker` |
-| Workers | `CPU cores` for async |
+| Production | Config                                           |
+| ---------- | ------------------------------------------------ |
+| Server     | `gunicorn -w 4 -k uvicorn.workers.UvicornWorker` |
+| Workers    | `CPU cores` for async                            |
 
 ## When to Use This Skill
 
 Use for **FastAPI development**:
+
 - Setting up FastAPI project structure
 - Creating Pydantic schemas with validation
 - Implementing dependency injection
@@ -47,13 +50,14 @@ Use for **FastAPI development**:
 - Docker deployment configuration
 
 **Related skills:**
+
 - For async patterns: see `python-asyncio`
 - For testing: see `python-testing`
 - For type hints: see `python-type-hints`
 
 ---
 
-# FastAPI Production Best Practices (2025)
+## FastAPI Production Best Practices (2025)
 
 ## Overview
 
@@ -626,4 +630,5 @@ async def test_create_user(client: AsyncClient):
 
 For advanced patterns beyond this guide, see:
 
-- **[Dependency Injection Patterns](references/dependency-injection-patterns.md)** - Type aliases (DbSession, CurrentUser, AdminUser), pagination dependencies, sorting/filtering, service layer patterns, request context, feature flags, rate limiting, caching dependencies
+- **[Dependency Injection Patterns](references/dependency-injection-patterns.md)** - Type aliases (DbSession, CurrentUser, AdminUser), pagination dependencies, sorting/filtering, service layer
+  patterns, request context, feature flags, rate limiting, caching dependencies

@@ -24,12 +24,12 @@ fi
 
 # Determine package manager
 if command -v uv &> /dev/null; then
-    RUN_CMD="uv run"
-elif [ -f ".venv/bin/activate" ]; then
-    RUN_CMD=""
-    source .venv/bin/activate
+  RUN_CMD="uv run"
+elif [[ -f ".venv/bin/activate" ]]; then
+  RUN_CMD=""
+  source \.venv/bin/activate
 else
-    RUN_CMD=""
+  RUN_CMD=""
 fi
 
 # Check if pytest-cov is available

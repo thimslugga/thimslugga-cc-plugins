@@ -14,7 +14,8 @@ metadata:
 
 # The Fool
 
-The court jester who alone could speak truth to the king. Not naive but strategically unbound by convention, hierarchy, or politeness. Applies structured critical reasoning across 5 modes to stress-test any idea, plan, or decision.
+The court jester who alone could speak truth to the king. Not naive but strategically unbound by convention, hierarchy, or politeness. Applies structured critical reasoning across 5 modes to
+stress-test any idea, plan, or decision.
 
 ## When to Use This Skill
 
@@ -39,12 +40,12 @@ Use `AskUserQuestion` to let the user choose how to challenge their idea.
 
 **Step 1 — Pick a category** (4 options):
 
-| Option | Description |
-|--------|-------------|
-| Question assumptions | Probe what's being taken for granted |
-| Build counter-arguments | Argue the strongest opposing position |
-| Find weaknesses | Anticipate how this fails or gets exploited |
-| You choose | Auto-recommend based on context |
+| Option                  | Description                                 |
+| ----------------------- | ------------------------------------------- |
+| Question assumptions    | Probe what's being taken for granted        |
+| Build counter-arguments | Argue the strongest opposing position       |
+| Find weaknesses         | Anticipate how this fails or gets exploited |
+| You choose              | Auto-recommend based on context             |
 
 **Step 2 — Refine mode** (only when the category maps to 2 modes):
 
@@ -55,24 +56,24 @@ Use `AskUserQuestion` to let the user choose how to challenge their idea.
 
 ## 5 Reasoning Modes
 
-| Mode | Method | Output |
-|------|--------|--------|
-| Expose My Assumptions | Socratic questioning | Probing questions grouped by theme |
-| Argue the Other Side | Hegelian dialectic + steel manning | Counter-argument and synthesis proposal |
-| Find the Failure Modes | Pre-mortem + second-order thinking | Ranked failure narratives with mitigations |
-| Attack This | Red teaming | Adversary profile, attack vectors, defenses |
-| Test the Evidence | Falsificationism + evidence weighting | Claims audited with falsification criteria |
+| Mode                   | Method                                | Output                                      |
+| ---------------------- | ------------------------------------- | ------------------------------------------- |
+| Expose My Assumptions  | Socratic questioning                  | Probing questions grouped by theme          |
+| Argue the Other Side   | Hegelian dialectic + steel manning    | Counter-argument and synthesis proposal     |
+| Find the Failure Modes | Pre-mortem + second-order thinking    | Ranked failure narratives with mitigations  |
+| Attack This            | Red teaming                           | Adversary profile, attack vectors, defenses |
+| Test the Evidence      | Falsificationism + evidence weighting | Claims audited with falsification criteria  |
 
 ## Reference Guide
 
-| Topic | Reference | Load When |
-|-------|-----------|-----------|
-| Socratic questioning | `references/socratic-questioning.md` | "Expose my assumptions" selected |
-| Dialectic and synthesis | `references/dialectic-synthesis.md` | "Argue the other side" selected |
-| Pre-mortem analysis | `references/pre-mortem-analysis.md` | "Find the failure modes" selected |
-| Red team adversarial | `references/red-team-adversarial.md` | "Attack this" selected |
-| Evidence audit | `references/evidence-audit.md` | "Test the evidence" selected |
-| Mode selection guide | `references/mode-selection-guide.md` | "You choose" selected or auto-recommend needed |
+| Topic                   | Reference                            | Load When                                      |
+| ----------------------- | ------------------------------------ | ---------------------------------------------- |
+| Socratic questioning    | `references/socratic-questioning.md` | "Expose my assumptions" selected               |
+| Dialectic and synthesis | `references/dialectic-synthesis.md`  | "Argue the other side" selected                |
+| Pre-mortem analysis     | `references/pre-mortem-analysis.md`  | "Find the failure modes" selected              |
+| Red team adversarial    | `references/red-team-adversarial.md` | "Attack this" selected                         |
+| Evidence audit          | `references/evidence-audit.md`       | "Test the evidence" selected                   |
+| Mode selection guide    | `references/mode-selection-guide.md` | "You choose" selected or auto-recommend needed |
 
 ## Constraints
 
@@ -100,13 +101,13 @@ Use `AskUserQuestion` to let the user choose how to challenge their idea.
 
 Each mode produces a structured deliverable. See the corresponding reference file for the full template.
 
-| Mode | Deliverable |
-|------|------------|
-| Expose My Assumptions | Assumption inventory + probing questions by theme + suggested experiments |
-| Argue the Other Side | Steelmanned thesis + antithesis argued + synthesis proposed + confidence rating |
-| Find the Failure Modes | Ranked failure narratives + early warning signs + mitigations + inversion check |
-| Attack This | Adversary profiles + ranked attack vectors + perverse incentives + defenses |
-| Test the Evidence | Claims extracted + falsification criteria + evidence grades + competing explanations |
+| Mode                   | Deliverable                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| Expose My Assumptions  | Assumption inventory + probing questions by theme + suggested experiments            |
+| Argue the Other Side   | Steelmanned thesis + antithesis argued + synthesis proposed + confidence rating      |
+| Find the Failure Modes | Ranked failure narratives + early warning signs + mitigations + inversion check      |
+| Attack This            | Adversary profiles + ranked attack vectors + perverse incentives + defenses          |
+| Test the Evidence      | Claims extracted + falsification criteria + evidence grades + competing explanations |
 
 After any mode, the final output must include:
 
@@ -119,4 +120,3 @@ After any mode, the final output must include:
 ## Knowledge Reference
 
 Socratic method, Hegelian dialectic, steel manning, pre-mortem analysis, red teaming, falsificationism, abductive reasoning, second-order thinking, cognitive biases, inversion technique
-

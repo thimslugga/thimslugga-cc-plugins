@@ -16,10 +16,12 @@ Docker commands are mostly identical across platforms, but the surrounding shell
 
 - **Inside `docker exec` / `docker run` containers** — commands target a Linux shell regardless of host OS (containers run Linux).
 - **On the host (Linux / macOS / WSL2)** — examples use bash with `/dev/null`, `grep`, `sed`, `awk`, package managers (`apt-get`, `brew`).
-- **On the host (Windows native PowerShell)** — substitute: `/dev/null` -> `$null`, `grep pattern` -> `Select-String pattern`, `sed -i 's/a/b/' f` -> `(Get-Content f) -replace 'a','b' | Set-Content f`. Pipe object output rather than text.
+- **On the host (Windows native PowerShell)** — substitute: `/dev/null` -> `$null`, `grep pattern` -> `Select-String pattern`, `sed -i 's/a/b/' f` ->
+  `(Get-Content f) -replace 'a','b' | Set-Content f`. Pipe object output rather than text.
 - **Docker Desktop on Windows** uses a WSL2 Linux VM — bash examples work inside WSL distros. PowerShell users can still run the `docker` CLI itself; only the supporting Unix tools need translation.
 
-Path quoting: when bind-mounting Windows paths into Docker Desktop, use forward slashes or escaped backslashes (`-v C:/Users/me/code:/app` or `-v "C:\Users\me\code:/app"`). The PowerShell host path uses Windows separators; the container path is always Linux-style.
+Path quoting: when bind-mounting Windows paths into Docker Desktop, use forward slashes or escaped backslashes (`-v C:/Users/me/code:/app` or `-v "C:\Users\me\code:/app"`). The PowerShell host path
+uses Windows separators; the container path is always Linux-style.
 
 ## Linux
 
@@ -34,12 +36,14 @@ Path quoting: when bind-mounting Windows paths into Docker Desktop, use forward 
 ### Platform Features
 
 **Container Technologies:**
+
 - Namespaces: PID, network, IPC, mount, UTS, user
 - cgroups v1 and v2 for resource control
 - Overlay2 storage driver (recommended)
 - SELinux and AppArmor for mandatory access control
 
 **Storage Drivers:**
+
 ```bash
 # Check current driver
 docker info | grep "Storage Driver"
@@ -54,6 +58,7 @@ docker info | grep "Storage Driver"
 ### Linux-Specific Configuration
 
 **Daemon Configuration** (`/etc/docker/daemon.json`):
+
 ```json
 {
   "storage-driver": "overlay2",
@@ -77,6 +82,7 @@ docker info | grep "Storage Driver"
 ```
 
 **User Namespace Remapping:**
+
 ```bash
 # Enable in daemon.json
 {
@@ -152,6 +158,7 @@ stat -fc %T /sys/fs/cgroup/
 ### Linux Distribution Specifics
 
 **Ubuntu/Debian:**
+
 ```bash
 # Install Docker
 sudo apt-get update
@@ -173,6 +180,7 @@ sudo usermod -aG docker $USER
 ```
 
 **RHEL/CentOS/Fedora:**
+
 ```bash
 # Install Docker
 sudo dnf -y install dnf-plugins-core
@@ -188,6 +196,7 @@ sudo usermod -aG docker $USER
 ```
 
 **Alpine:**
+
 ```bash
 # Install Docker
 apk add docker docker-compose
@@ -209,6 +218,7 @@ service docker start
 ### macOS-Specific Considerations
 
 **Resource Allocation:**
+
 ```text
 Docker Desktop → Preferences → Resources → Advanced
 - CPUs: Allocate based on workload (default: half available)
@@ -220,6 +230,7 @@ Docker Desktop → Preferences → Resources → Advanced
 **File Sharing Performance:**
 
 Traditional osxfs is slow. Improvements:
+
 1. **VirtioFS:** Enable in Docker Desktop settings (faster)
 2. **Delegated/Cached mounts:**
 
@@ -248,6 +259,7 @@ docker run -e DATABASE_URL=postgresql://host.docker.internal:5432/db myapp
 ### Apple Silicon (M1/M2/M3) Specifics
 
 **Architecture Considerations:**
+
 ```bash
 # Check image architecture
 docker image inspect node:20-alpine | grep Architecture
@@ -263,19 +275,23 @@ docker run --platform linux/amd64 myimage  # Slower
 ```
 
 **Rosetta 2 Integration:**
+
 ```text
 Docker Desktop → Features in development → Use Rosetta for x86/amd64 emulation
 ```
+
 Faster AMD64 emulation on Apple Silicon.
 
 ### macOS Docker Desktop Settings
 
 **General:**
+
 - ✅ Start Docker Desktop when you log in
 - ✅ Use VirtioFS (better performance)
 - ✅ Use Virtualization framework (Apple Silicon)
 
 **Resources:**
+
 ```yaml
 CPUs: 4-6 (for development)
 Memory: 6-8 GB (for development)
@@ -284,6 +300,7 @@ Disk image size: 100+ GB (grows dynamically)
 ```
 
 **Docker Engine:**
+
 ```json
 {
   "builder": {
@@ -341,18 +358,21 @@ volumes:
 
 **Problem:** Slow file sync
 **Solution:**
+
 - Use VirtioFS
 - Use delegated/cached mounts
 - Store dependencies in volumes (not bind mounts)
 
 **Problem:** High CPU usage
 **Solution:**
+
 - Reduce file watching
 - Exclude large directories from file sharing
 - Allocate more resources
 
 **Problem:** Port already in use
 **Solution:**
+
 ```bash
 # Find process using port
 lsof -i :PORT
@@ -361,25 +381,26 @@ kill -9 PID
 
 ## Windows
 
-For Windows Docker specifics (container types, WSL2, image variants `nanoserver` / `windowsservercore`, licensing, networking, mount semantics, Visual Studio integration), see `references/windows-platform-detail.md`. Highlights:
+For Windows Docker specifics (container types, WSL2, image variants `nanoserver` / `windowsservercore`, licensing, networking, mount semantics, Visual Studio integration), see
+`references/windows-platform-detail.md`. Highlights:
 
 - **Container types:** Windows Server Containers (process isolation) vs Hyper-V Containers (kernel isolation).
 - **WSL2 backend:** Docker Desktop default; gives near-native Linux performance.
 - **Image variants:** `mcr.microsoft.com/windows/nanoserver` (smallest) vs `windowsservercore` (full API).
-- **Mounts:** convert `S:eposx` to `/s/repos/x` in Git Bash or set `MSYS_NO_PATHCONV=1`.
-
+- **Mounts:** convert `S:
+eposx` to `/s/repos/x` in Git Bash or set `MSYS_NO_PATHCONV=1`.
 
 ## Platform Comparison
 
-| Feature | Linux | macOS | Windows |
-|---------|-------|-------|---------|
-| **Performance** | Excellent (native) | Good (VM overhead) | Good (WSL2) to Fair (Hyper-V) |
-| **File sharing** | Native | Slow (improving with VirtioFS) | Slow (better in WSL2) |
-| **Resource efficiency** | Best | Good | Good (WSL2) |
-| **Feature set** | Complete | Complete | Complete (LCOW) |
-| **Production** | Standard | Dev only | Dev only (LCOW) |
-| **Ease of use** | Moderate | Easy (Docker Desktop) | Easy (Docker Desktop) |
-| **Cost** | Free | Free (Docker Desktop Personal) | Free (Docker Desktop Personal) |
+| Feature                 | Linux              | macOS                          | Windows                        |
+| ----------------------- | ------------------ | ------------------------------ | ------------------------------ |
+| **Performance**         | Excellent (native) | Good (VM overhead)             | Good (WSL2) to Fair (Hyper-V)  |
+| **File sharing**        | Native             | Slow (improving with VirtioFS) | Slow (better in WSL2)          |
+| **Resource efficiency** | Best               | Good                           | Good (WSL2)                    |
+| **Feature set**         | Complete           | Complete                       | Complete (LCOW)                |
+| **Production**          | Standard           | Dev only                       | Dev only (LCOW)                |
+| **Ease of use**         | Moderate           | Easy (Docker Desktop)          | Easy (Docker Desktop)          |
+| **Cost**                | Free               | Free (Docker Desktop Personal) | Free (Docker Desktop Personal) |
 
 ## Cross-Platform Best Practices
 
@@ -449,6 +470,7 @@ docker run --rm myapp:arm64
 ## Platform Selection Guide
 
 **Choose Linux for:**
+
 - Production deployments
 - Maximum performance
 - Full Docker feature set
@@ -456,12 +478,14 @@ docker run --rm myapp:arm64
 - CI/CD pipelines
 
 **Choose macOS for:**
+
 - Development on Mac hardware
 - When you need macOS tools
 - Docker Desktop ease of use
 - M1/M2/M3 development
 
 **Choose Windows for:**
+
 - Development on Windows hardware
 - Windows-specific applications
 - When team uses Windows

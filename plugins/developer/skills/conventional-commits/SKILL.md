@@ -28,19 +28,19 @@ Write standardized, semantic commit messages that enable automated versioning an
 
 ## Commit Types
 
-| Type | Description | Semver | Example |
-|------|-------------|--------|---------|
-| `feat` | New feature | MINOR | `feat: add user authentication` |
-| `fix` | Bug fix | PATCH | `fix: resolve login redirect loop` |
-| `docs` | Documentation only | - | `docs: update API reference` |
-| `style` | Formatting, whitespace | - | `style: fix indentation in utils` |
-| `refactor` | Code change, no feature/fix | - | `refactor: extract validation logic` |
-| `perf` | Performance improvement | PATCH | `perf: optimize database queries` |
-| `test` | Adding/fixing tests | - | `test: add unit tests for auth` |
-| `build` | Build system, dependencies | - | `build: upgrade to Node 20` |
-| `ci` | CI/CD configuration | - | `ci: add GitHub Actions workflow` |
-| `chore` | Maintenance tasks | - | `chore: update .gitignore` |
-| `revert` | Revert previous commit | - | `revert: undo feature flag change` |
+| Type       | Description                 | Semver | Example                              |
+| ---------- | --------------------------- | ------ | ------------------------------------ |
+| `feat`     | New feature                 | MINOR  | `feat: add user authentication`      |
+| `fix`      | Bug fix                     | PATCH  | `fix: resolve login redirect loop`   |
+| `docs`     | Documentation only          | -      | `docs: update API reference`         |
+| `style`    | Formatting, whitespace      | -      | `style: fix indentation in utils`    |
+| `refactor` | Code change, no feature/fix | -      | `refactor: extract validation logic` |
+| `perf`     | Performance improvement     | PATCH  | `perf: optimize database queries`    |
+| `test`     | Adding/fixing tests         | -      | `test: add unit tests for auth`      |
+| `build`    | Build system, dependencies  | -      | `build: upgrade to Node 20`          |
+| `ci`       | CI/CD configuration         | -      | `ci: add GitHub Actions workflow`    |
+| `chore`    | Maintenance tasks           | -      | `chore: update .gitignore`           |
+| `revert`   | Revert previous commit      | -      | `revert: undo feature flag change`   |
 
 ## Scopes
 
@@ -200,14 +200,14 @@ and ensures CDN purge for static assets.
 
 ## Footer Tokens
 
-| Token | Purpose | Example |
-|-------|---------|---------|
-| `Fixes` | Closes issue | `Fixes #123` |
-| `Closes` | Closes issue | `Closes #456` |
-| `Refs` | References issue | `Refs #789` |
-| `BREAKING CHANGE` | Breaking change | `BREAKING CHANGE: description` |
-| `Reviewed-by` | Reviewer credit | `Reviewed-by: Name` |
-| `Co-authored-by` | Co-author credit | `Co-authored-by: Name <email>` |
+| Token             | Purpose          | Example                        |
+| ----------------- | ---------------- | ------------------------------ |
+| `Fixes`           | Closes issue     | `Fixes #123`                   |
+| `Closes`          | Closes issue     | `Closes #456`                  |
+| `Refs`            | References issue | `Refs #789`                    |
+| `BREAKING CHANGE` | Breaking change  | `BREAKING CHANGE: description` |
+| `Reviewed-by`     | Reviewer credit  | `Reviewed-by: Name`            |
+| `Co-authored-by`  | Co-author credit | `Co-authored-by: Name <email>` |
 
 ## Integration with Tooling
 
@@ -276,13 +276,13 @@ plugins:
 
 ### Version Bumping Rules
 
-| Commit Type | Version Bump | Example |
-|-------------|--------------|---------|
-| `feat` | Minor (0.X.0) | 1.2.0 → 1.3.0 |
-| `fix` | Patch (0.0.X) | 1.2.0 → 1.2.1 |
-| `perf` | Patch (0.0.X) | 1.2.0 → 1.2.1 |
+| Commit Type       | Version Bump  | Example       |
+| ----------------- | ------------- | ------------- |
+| `feat`            | Minor (0.X.0) | 1.2.0 → 1.3.0 |
+| `fix`             | Patch (0.0.X) | 1.2.0 → 1.2.1 |
+| `perf`            | Patch (0.0.X) | 1.2.0 → 1.2.1 |
 | `BREAKING CHANGE` | Major (X.0.0) | 1.2.0 → 2.0.0 |
-| Others | No bump | 1.2.0 → 1.2.0 |
+| Others            | No bump       | 1.2.0 → 1.2.0 |
 
 ## Commit Message Generator
 

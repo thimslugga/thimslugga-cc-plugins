@@ -32,6 +32,7 @@ pytest -v --cov --cov-report=term-missing
 ## Options
 
 You can specify:
+
 - **Test path**: `tests/unit/test_users.py`
 - **Test pattern**: `-k "test_create"`
 - **Parallel**: `-n auto` (with pytest-xdist)
@@ -41,6 +42,7 @@ You can specify:
 ## Coverage Report
 
 The command displays:
+
 - Files and their coverage percentage
 - Missing lines that need tests
 - Branch coverage (if enabled)
@@ -66,6 +68,7 @@ TOTAL                      57      5    91%
 ## Troubleshooting
 
 If tests fail, I will:
+
 1. Analyze the failure message
 2. Identify the root cause
 3. Suggest fixes

@@ -88,10 +88,10 @@ the system shall return 400 with field-specific error messages.
 
 ## Quick Reference
 
-| Type | Pattern | Example Trigger |
-|------|---------|-----------------|
-| Ubiquitous | shall [action] | Always true |
-| Event | When [X], shall | On button click |
-| State | While [X], shall | While logged in |
+| Type        | Pattern                    | Example Trigger          |
+| ----------- | -------------------------- | ------------------------ |
+| Ubiquitous  | shall [action]             | Always true              |
+| Event       | When [X], shall            | On button click          |
+| State       | While [X], shall           | While logged in          |
 | Conditional | While [X], when [Y], shall | While admin, when delete |
-| Optional | Where [X], shall | If feature enabled |
+| Optional    | Where [X], shall           | If feature enabled       |

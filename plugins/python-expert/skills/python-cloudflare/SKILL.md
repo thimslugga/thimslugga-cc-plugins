@@ -7,36 +7,39 @@ description: |
   Ensures edge deployment with proper architecture choices.
 ---
 
+# Python Cloudflare
+
 ## Quick Reference
 
-| Platform | Cold Start | Packages | Best For |
-|----------|------------|----------|----------|
-| Workers (Pyodide) | ~50ms | Limited | API endpoints |
-| Containers | ~10s | Any | Heavy compute, AI |
+| Platform          | Cold Start | Packages | Best For          |
+| ----------------- | ---------- | -------- | ----------------- |
+| Workers (Pyodide) | ~50ms      | Limited  | API endpoints     |
+| Containers        | ~10s       | Any      | Heavy compute, AI |
 
-| Worker Pattern | Code |
-|----------------|------|
-| Basic handler | `class Default(WorkerEntrypoint):` |
-| FastAPI | `await asgi.fetch(app, request, self.env)` |
-| Env vars | `self.env.API_KEY` |
-| Service binding | `await self.env.WORKER_B.method()` |
+| Worker Pattern  | Code                                       |
+| --------------- | ------------------------------------------ |
+| Basic handler   | `class Default(WorkerEntrypoint):`         |
+| FastAPI         | `await asgi.fetch(app, request, self.env)` |
+| Env vars        | `self.env.API_KEY`                         |
+| Service binding | `await self.env.WORKER_B.method()`         |
 
-| Command | Purpose |
-|---------|---------|
-| `pywrangler init` | Create Python Worker |
-| `pywrangler dev` | Local development |
+| Command             | Purpose              |
+| ------------------- | -------------------- |
+| `pywrangler init`   | Create Python Worker |
+| `pywrangler dev`    | Local development    |
 | `pywrangler deploy` | Deploy to Cloudflare |
 
 | Container vs Worker | Recommendation |
-|---------------------|----------------|
-| Simple API | Worker |
-| pandas/numpy | Container |
-| GPU/AI | Container |
-| <50ms latency | Worker |
+| ------------------- | -------------- |
+| Simple API          | Worker         |
+| pandas/numpy        | Container      |
+| GPU/AI              | Container      |
+| <50ms latency       | Worker         |
 
 ## When to Use This Skill
 
 Use for **Cloudflare edge deployment**:
+
 - Deploying Python APIs to Cloudflare Workers
 - Running FastAPI on Cloudflare edge
 - Using Containers for heavy compute
@@ -44,17 +47,19 @@ Use for **Cloudflare edge deployment**:
 - Optimizing cold starts
 
 **Related skills:**
+
 - For FastAPI: see `python-fastapi`
 - For async patterns: see `python-asyncio`
 - For Docker: see `python-github-actions`
 
 ---
 
-# Python on Cloudflare (Workers & Containers)
+## Python on Cloudflare (Workers & Containers)
 
 ## Overview
 
 Cloudflare provides two ways to run Python:
+
 1. **Python Workers** - Serverless functions using Pyodide (WebAssembly)
 2. **Cloudflare Containers** - Full Docker containers (beta, June 2025)
 
@@ -71,7 +76,7 @@ Cloudflare provides two ways to run Python:
 
 ```bash
 # Install pywrangler (Python Workers CLI)
-pip install pywrangler
+python3 -m pip install pywrangler
 
 # Create new Python Worker
 pywrangler init my-worker
@@ -298,14 +303,14 @@ class Default(WorkerEntrypoint):
 
 ### When to Use Containers vs Workers
 
-| Feature | Workers | Containers |
-|---------|---------|------------|
-| Cold start | ~50ms | ~10s (with prewarming) |
-| Package support | Pyodide-compatible | Any |
-| Memory | Limited | Configurable |
-| File system | No | Yes |
-| Native binaries | No | Yes |
-| Best for | API endpoints | Batch jobs, AI, heavy compute |
+| Feature         | Workers            | Containers                    |
+| --------------- | ------------------ | ----------------------------- |
+| Cold start      | ~50ms              | ~10s (with prewarming)        |
+| Package support | Pyodide-compatible | Any                           |
+| Memory          | Limited            | Configurable                  |
+| File system     | No                 | Yes                           |
+| Native binaries | No                 | Yes                           |
+| Best for        | API endpoints      | Batch jobs, AI, heavy compute |
 
 ### Container Setup
 
@@ -317,7 +322,7 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 # Copy application
 COPY . .
@@ -373,7 +378,7 @@ FROM python:3.12-slim as builder
 
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt --target=/app/deps
+RUN python3 -m pip install --no-cache-dir -r requirements.txt --target=/app/deps
 
 FROM python:3.12-slim
 
